@@ -1,6 +1,6 @@
 package com.example.zoutohanafansitedemo.controller;
 
-import com.example.zoutohanafansitedemo.entity.Post;
+import com.example.zoutohanafansitedemo.entity.post.*;
 import com.example.zoutohanafansitedemo.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,5 +29,11 @@ public class PostController {
     public ResponseEntity<Post> findById(@PathVariable Integer id) {
         Post post = postService.findById(id);
         return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("/latest")
+    public ResponseEntity<List<PostTop>> fetchTopLatest() {
+        List<PostTop> posts = postService.fetchTopLatest();
+        return ResponseEntity.ok(posts);
     }
 }

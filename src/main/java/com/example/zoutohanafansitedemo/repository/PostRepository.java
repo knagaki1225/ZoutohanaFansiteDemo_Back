@@ -1,6 +1,6 @@
 package com.example.zoutohanafansitedemo.repository;
 
-import com.example.zoutohanafansitedemo.entity.Post;
+import com.example.zoutohanafansitedemo.entity.post.*;
 import com.example.zoutohanafansitedemo.mapper.PostMapper;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +20,9 @@ public class PostRepository {
 
     public Post findById(Integer id) {
         return postMapper.findById(id);
+    }
+
+    public List<PostTop> fetchTopLatest() {
+        return postMapper.fetchTopLatest();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.zoutohanafansitedemo.entity;
+package com.example.zoutohanafansitedemo.entity.post;
 
 import lombok.Data;
 

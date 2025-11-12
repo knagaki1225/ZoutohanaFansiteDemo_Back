@@ -1,6 +1,6 @@
 package com.example.zoutohanafansitedemo.mapper;
 
-import com.example.zoutohanafansitedemo.entity.Post;
+import com.example.zoutohanafansitedemo.entity.post.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -39,4 +39,17 @@ public interface PostMapper {
             AND id = #{id}
     """)
     Post findById(Integer id);
+
+    @Select("""
+        SELECT
+            id,
+            category,
+            title,
+            posted_at
+        FROM posts
+        WHERE is_delete = false
+        ORDER BY posted_at DESC
+        LIMIT 0, 4
+    """)
+    List<PostTop> fetchTopLatest();
 }

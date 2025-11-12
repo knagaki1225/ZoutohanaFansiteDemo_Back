@@ -1,6 +1,6 @@
 package com.example.zoutohanafansitedemo.service;
 
-import com.example.zoutohanafansitedemo.entity.Post;
+import com.example.zoutohanafansitedemo.entity.post.*;
 import com.example.zoutohanafansitedemo.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +21,9 @@ public class PostService {
 
     public Post findById(Integer id) {
         return postRepository.findById(id);
+    }
+
+    public List<PostTop> fetchTopLatest() {
+        return postRepository.fetchTopLatest();
     }
 }
