@@ -27,7 +27,11 @@ public class PostService {
         return postRepository.fetchTopLatest();
     }
 
-    public List<PostTop> fetchTopLatestCategory(int category) {
-        return postRepository.fetchTopLatestCategory(category);
+    public List<PostTop> fetchTopCategory(int category) {
+        return postRepository.fetchTopCategory(category);
+    }
+
+    public List<PostList> fetchListCategory(int category) {
+        return postRepository.fetchListCategory(category);
     }
 }

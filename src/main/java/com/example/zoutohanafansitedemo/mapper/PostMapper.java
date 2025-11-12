@@ -67,5 +67,19 @@ public interface PostMapper {
         ORDER BY posted_at DESC
         LIMIT 0, 4
     """)
-    List<PostTop> fetchTopLatestCategory(int category);
+    List<PostTop> fetchTopCategory(int category);
+
+    @Select("""
+        SELECT
+            id,
+            title,
+            content,
+            posted_at
+        FROM posts
+        WHERE is_delete = false
+            AND status = 3
+            AND category = #{category}
+        ORDER BY posted_at DESC
+    """)
+    List<PostList> fetchListCategory(int category);
 }

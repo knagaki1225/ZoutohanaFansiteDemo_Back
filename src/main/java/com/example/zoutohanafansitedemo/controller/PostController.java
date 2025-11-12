@@ -38,8 +38,14 @@ public class PostController {
     }
 
     @GetMapping("/top/{category}")
-    public ResponseEntity<List<PostTop>> fetchTopLatestCategory(@PathVariable int category) {
-        List<PostTop> posts = postService.fetchTopLatestCategory(category);
+    public ResponseEntity<List<PostTop>> fetchTopCategory(@PathVariable int category) {
+        List<PostTop> posts = postService.fetchTopCategory(category);
+        return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/list/{category}")
+    public ResponseEntity<List<PostList>> fetchListCategory(@PathVariable int category) {
+        List<PostList> posts = postService.fetchListCategory(category);
         return ResponseEntity.ok(posts);
     }
 }

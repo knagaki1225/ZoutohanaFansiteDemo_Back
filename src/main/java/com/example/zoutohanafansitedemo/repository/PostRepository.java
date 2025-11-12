@@ -26,7 +26,11 @@ public class PostRepository {
         return postMapper.fetchTopLatest();
     }
 
-    public List<PostTop> fetchTopLatestCategory(int category) {
-        return postMapper.fetchTopLatestCategory(category);
+    public List<PostTop> fetchTopCategory(int category) {
+        return postMapper.fetchTopCategory(category);
+    }
+
+    public List<PostList> fetchListCategory(int category) {
+        return postMapper.fetchListCategory(category);
     }
 }
