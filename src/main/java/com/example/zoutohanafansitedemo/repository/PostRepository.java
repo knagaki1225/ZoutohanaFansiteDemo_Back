@@ -17,4 +17,8 @@ public class PostRepository {
     public List<Post> findAll() {
         return postMapper.findAll();
     }
+
+    public Post findById(Integer id) {
+        return postMapper.findById(id);
+    }
 }

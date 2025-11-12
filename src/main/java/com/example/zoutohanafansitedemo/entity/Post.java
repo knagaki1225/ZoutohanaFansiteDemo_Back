@@ -15,5 +15,4 @@ public class Post {
     private Integer status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private boolean isDelete;
 }

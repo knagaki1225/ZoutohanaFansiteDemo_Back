@@ -4,6 +4,7 @@ import com.example.zoutohanafansitedemo.entity.Post;
 import com.example.zoutohanafansitedemo.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,11 @@ public class PostController {
     public ResponseEntity<List<Post>> findAll() {
         List<Post> posts = postService.findAll();
         return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> findById(@PathVariable Integer id) {
+        Post post = postService.findById(id);
+        return ResponseEntity.ok(post);
     }
 }
