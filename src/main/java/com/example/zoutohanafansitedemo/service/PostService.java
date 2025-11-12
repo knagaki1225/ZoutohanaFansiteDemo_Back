@@ -19,11 +19,15 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public Post findById(Integer id) {
+    public Post findById(long id) {
         return postRepository.findById(id);
     }
 
     public List<PostTop> fetchTopLatest() {
         return postRepository.fetchTopLatest();
+    }
+
+    public List<PostTop> fetchTopLatestCategory(int category) {
+        return postRepository.fetchTopLatestCategory(category);
     }
 }

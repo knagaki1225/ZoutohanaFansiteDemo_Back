@@ -38,7 +38,7 @@ public interface PostMapper {
         WHERE is_delete = false
             AND id = #{id}
     """)
-    Post findById(Integer id);
+    Post findById(long id);
 
     @Select("""
         SELECT
@@ -48,8 +48,24 @@ public interface PostMapper {
             posted_at
         FROM posts
         WHERE is_delete = false
+            AND status = 3
         ORDER BY posted_at DESC
         LIMIT 0, 4
     """)
     List<PostTop> fetchTopLatest();
+
+    @Select("""
+        SELECT
+            id,
+            category,
+            title,
+            posted_at
+        FROM posts
+        WHERE is_delete = false
+            AND status = 3
+            AND category = #{category}
+        ORDER BY posted_at DESC
+        LIMIT 0, 4
+    """)
+    List<PostTop> fetchTopLatestCategory(int category);
 }

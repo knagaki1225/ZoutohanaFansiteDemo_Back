@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class PostTop {
-    private Integer id;
-    private Integer category;
+    private long id;
+    private int category;
     private String title;
     private LocalDateTime postedAt;
 }

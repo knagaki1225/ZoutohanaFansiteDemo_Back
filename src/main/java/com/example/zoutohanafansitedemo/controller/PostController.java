@@ -26,14 +26,20 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> findById(@PathVariable Integer id) {
+    public ResponseEntity<Post> findById(@PathVariable long id) {
         Post post = postService.findById(id);
         return ResponseEntity.ok(post);
     }
 
-    @GetMapping("/latest")
+    @GetMapping("/top/latest")
     public ResponseEntity<List<PostTop>> fetchTopLatest() {
         List<PostTop> posts = postService.fetchTopLatest();
+        return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/top/{category}")
+    public ResponseEntity<List<PostTop>> fetchTopLatestCategory(@PathVariable int category) {
+        List<PostTop> posts = postService.fetchTopLatestCategory(category);
         return ResponseEntity.ok(posts);
     }
 }

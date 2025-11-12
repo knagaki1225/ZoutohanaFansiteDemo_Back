@@ -18,11 +18,15 @@ public class PostRepository {
         return postMapper.findAll();
     }
 
-    public Post findById(Integer id) {
+    public Post findById(long id) {
         return postMapper.findById(id);
     }
 
     public List<PostTop> fetchTopLatest() {
         return postMapper.fetchTopLatest();
+    }
+
+    public List<PostTop> fetchTopLatestCategory(int category) {
+        return postMapper.fetchTopLatestCategory(category);
     }
 }
