@@ -161,7 +161,7 @@ CREATE TABLE Posts (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_delete BOOLEAN DEFAULT FALSE,
-FOREIGN KEY (admin_id) REFERENCES Admin_users(id)
+    FOREIGN KEY (admin_id) REFERENCES Admin_users(id)
 );
 
 -- Review_genres テーブル (中間テーブル)
