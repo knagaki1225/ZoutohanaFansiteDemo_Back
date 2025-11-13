@@ -1,7 +1,6 @@
-package com.example.zoutohanafansitedemo.entity;
+package com.example.zoutohanafansitedemo.entity.project;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 

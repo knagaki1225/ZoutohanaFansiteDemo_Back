@@ -1,6 +1,6 @@
 package com.example.zoutohanafansitedemo.mapper;
 
-import com.example.zoutohanafansitedemo.entity.Project;
+import com.example.zoutohanafansitedemo.entity.project.Project;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,4 +26,14 @@ public interface ProjectMapper {
               AND NOW() BETWEEN start_at AND end_at;
             """)
     List<Project> selectProgressProjects();
+
+    @Select("""
+            SELECT *
+            FROM Projects
+            WHERE is_delete = FALSE
+              AND end_at < NOW()
+              AND is_public = TRUE
+            ORDER BY end_at DESC
+            """)
+    List<Project> selectEndProjects();
 }

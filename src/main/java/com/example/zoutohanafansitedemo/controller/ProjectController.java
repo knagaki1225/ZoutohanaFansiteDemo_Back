@@ -1,12 +1,14 @@
 package com.example.zoutohanafansitedemo.controller;
 
-import com.example.zoutohanafansitedemo.entity.Project;
-import com.example.zoutohanafansitedemo.entity.ProjectTopPageEnd;
-import com.example.zoutohanafansitedemo.entity.ProjectTopPageProgress;
+import com.example.zoutohanafansitedemo.entity.project.Project;
+import com.example.zoutohanafansitedemo.entity.project.ProjectListPageEnd;
+import com.example.zoutohanafansitedemo.entity.project.ProjectTopPageEnd;
+import com.example.zoutohanafansitedemo.entity.project.ProjectProgress;
 import com.example.zoutohanafansitedemo.service.ProjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -33,13 +35,19 @@ public class ProjectController {
     }
 
     @GetMapping("/top/progress")
-    public ResponseEntity<List<ProjectTopPageProgress>> getTopProjectsProgress(){
+    public ResponseEntity<List<ProjectProgress>> getTopProjectsProgress(){
         List<Project> projects = projectService.getProgressProjects();
-        List<ProjectTopPageProgress> topProjects = new ArrayList<>();
+        List<ProjectProgress> topProjects = new ArrayList<>();
         for (Project project : projects){
-            topProjects.add(new ProjectTopPageProgress(project.getId(), project.getUrlKey(), project.getName(), project.getStartAt(), project.getEndAt(), project.getIntroduction()));
+            topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getLogoImgUrl(), project.getStartAt(), project.getEndAt(), project.getIntroduction()));
         }
 
         return ResponseEntity.ok(topProjects);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<ProjectListPageEnd>> getListPageProjectEnd(@RequestParam(defaultValue = "1") int page){
+        return ResponseEntity.ok(projectService.getProjectListPageEnd(page));
+
     }
 }

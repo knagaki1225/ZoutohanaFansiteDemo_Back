@@ -1,6 +1,6 @@
 package com.example.zoutohanafansitedemo.repository;
 
-import com.example.zoutohanafansitedemo.entity.Project;
+import com.example.zoutohanafansitedemo.entity.project.Project;
 import com.example.zoutohanafansitedemo.mapper.ProjectMapper;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +20,9 @@ public class ProjectRepository {
 
     public List<Project> selectProgressProjects(){
         return projectMapper.selectProgressProjects();
+    }
+
+    public List<Project> selectEndProjects(){
+        return projectMapper.selectEndProjects();
     }
 }
