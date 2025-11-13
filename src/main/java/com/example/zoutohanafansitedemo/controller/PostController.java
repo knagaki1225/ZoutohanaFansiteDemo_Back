@@ -33,19 +33,25 @@ public class PostController {
 
     @GetMapping("/top/latest")
     public ResponseEntity<List<PostTop>> fetchTopLatest() {
-        List<PostTop> posts = postService.fetchTopLatest();
-        return ResponseEntity.ok(posts);
+        List<PostTop> postTops = postService.fetchTopLatest();
+        return ResponseEntity.ok(postTops);
     }
 
     @GetMapping("/top/{category}")
     public ResponseEntity<List<PostTop>> fetchTopCategory(@PathVariable int category) {
-        List<PostTop> posts = postService.fetchTopCategory(category);
-        return ResponseEntity.ok(posts);
+        List<PostTop> postTops = postService.fetchTopCategory(category);
+        return ResponseEntity.ok(postTops);
     }
 
     @GetMapping("/list/{category}")
     public ResponseEntity<List<PostList>> fetchListCategory(@PathVariable int category) {
-        List<PostList> posts = postService.fetchListCategory(category);
-        return ResponseEntity.ok(posts);
+        List<PostList> postLists = postService.fetchListCategory(category);
+        return ResponseEntity.ok(postLists);
+    }
+
+    @GetMapping("/view/{id}")
+    public ResponseEntity<PostView> fetchById(@PathVariable long id) {
+        PostView postView = postService.fetchById(id);
+        return ResponseEntity.ok(postView);
     }
 }

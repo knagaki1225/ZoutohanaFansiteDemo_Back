@@ -33,4 +33,8 @@ public class PostRepository {
     public List<PostList> fetchListCategory(int category) {
         return postMapper.fetchListCategory(category);
     }
+
+    public PostView fetchById(long id) {
+        return postMapper.fetchById(id);
+    }
 }

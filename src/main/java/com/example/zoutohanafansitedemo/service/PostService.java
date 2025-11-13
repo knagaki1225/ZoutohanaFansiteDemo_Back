@@ -34,4 +34,8 @@ public class PostService {
     public List<PostList> fetchListCategory(int category) {
         return postRepository.fetchListCategory(category);
     }
+
+    public PostView fetchById(long id) {
+        return postRepository.fetchById(id);
+    }
 }

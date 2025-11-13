@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper {
+//    ==========ここからデバッグ用(削除済み・非表示も返す)==========
     @Select("""
         SELECT
             id,
@@ -19,7 +20,6 @@ public interface PostMapper {
             created_at,
             updated_at
         FROM posts
-        WHERE is_delete = false
     """)
     List<Post> findAll();
 
@@ -35,10 +35,11 @@ public interface PostMapper {
             created_at,
             updated_at
         FROM posts
-        WHERE is_delete = false
-            AND id = #{id}
+        WHERE id = #{id}
     """)
     Post findById(long id);
+
+//    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
 
     @Select("""
         SELECT
@@ -82,4 +83,18 @@ public interface PostMapper {
         ORDER BY posted_at DESC
     """)
     List<PostList> fetchListCategory(int category);
+
+    @Select("""
+        SELECT
+            id,
+            category,
+            title,
+            content,
+            posted_at
+        FROM posts
+        WHERE is_delete = false
+            AND status = 3
+            AND id = #{id}
+    """)
+    PostView fetchById(long id);
 }
