@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Post {
     private long id;
     private int adminId;
-    private int category;
+    private String category;
     private String title;
     private String content;
     private LocalDateTime postedAt;
