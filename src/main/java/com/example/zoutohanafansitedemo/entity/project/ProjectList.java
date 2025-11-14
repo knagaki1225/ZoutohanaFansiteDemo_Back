@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ProjectListPageEnd {
+public class ProjectList {
     long id;
     private String urlKey;
     private String name;
@@ -13,7 +13,7 @@ public class ProjectListPageEnd {
     private LocalDateTime endAt;
     private String introduction;
 
-    public ProjectListPageEnd(long id, String urlKey, String name, LocalDateTime startAt, LocalDateTime endAt, String introduction) {
+    public ProjectList(long id, String urlKey, String name, LocalDateTime startAt, LocalDateTime endAt, String introduction) {
         this.id = id;
         this.urlKey = urlKey;
         this.name = name;
