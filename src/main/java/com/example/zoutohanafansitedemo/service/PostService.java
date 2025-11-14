@@ -15,8 +15,8 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public List<Post> selectAll() {
+        return postRepository.selectAll();
     }
 
     public Post findById(long id) {
@@ -35,7 +35,7 @@ public class PostService {
         return postRepository.fetchListCategory(category);
     }
 
-    public PostView fetchById(long id) {
-        return postRepository.fetchById(id);
+    public PostView selectById(long id) {
+        return postRepository.selectById(id);
     }
 }
