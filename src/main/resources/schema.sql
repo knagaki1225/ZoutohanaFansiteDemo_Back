@@ -153,7 +153,7 @@ CREATE TABLE Notification_templates (
 CREATE TABLE Posts (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     admin_id INTEGER NOT NULL,
-    category INTEGER NOT NULL,
+    category VARCHAR(255) NOT NULL,
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     posted_at TIMESTAMP,
