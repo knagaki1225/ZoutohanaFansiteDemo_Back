@@ -11,6 +11,12 @@ public interface ProjectMapper {
     @Select("""
             SELECT *
             FROM Projects
+            """)
+    List<Project> selectAll();
+
+    @Select("""
+            SELECT *
+            FROM Projects
             WHERE is_delete = FALSE
               AND end_at < NOW()
               AND is_public = TRUE

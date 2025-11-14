@@ -20,6 +20,14 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
+//    ==========ここからデバッグ用(削除済み・非表示も返す)==========
+    @GetMapping
+    public ResponseEntity<List<Project>> getAll() {
+        List<Project> projects = projectService.getAll();
+        return ResponseEntity.ok(projects);
+    }
+//    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
+
     @GetMapping("/top/end")
     public ResponseEntity<List<ProjectTopPageEnd>> getTopProjects(){
         List<Project> projects = projectService.getFourEndProject();

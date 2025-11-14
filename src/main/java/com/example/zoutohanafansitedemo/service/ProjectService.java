@@ -18,6 +18,10 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
+    public List<Project> getAll() {
+        return projectRepository.selectAll();
+    }
+
     public List<Project> getFourEndProject(){
         return projectRepository.selectFourEndProjects();
     }
