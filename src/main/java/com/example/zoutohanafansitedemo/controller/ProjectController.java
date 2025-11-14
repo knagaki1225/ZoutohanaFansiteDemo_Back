@@ -1,9 +1,6 @@
 package com.example.zoutohanafansitedemo.controller;
 
-import com.example.zoutohanafansitedemo.entity.project.Project;
-import com.example.zoutohanafansitedemo.entity.project.ProjectListPageEnd;
-import com.example.zoutohanafansitedemo.entity.project.ProjectTopPageEnd;
-import com.example.zoutohanafansitedemo.entity.project.ProjectProgress;
+import com.example.zoutohanafansitedemo.entity.project.*;
 import com.example.zoutohanafansitedemo.service.ProjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +43,8 @@ public class ProjectController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<ProjectListPageEnd>> getListPageProjectEnd(@RequestParam(defaultValue = "1") int page){
-        return ResponseEntity.ok(projectService.getProjectListPageEnd(page));
-
+    public ResponseEntity<ProjectPagination> getListPageProjectEnd(@RequestParam(defaultValue = "1") int page){
+        ProjectPagination pp = projectService.getProjectPagination(page);
+        return ResponseEntity.ok(pp);
     }
 }
