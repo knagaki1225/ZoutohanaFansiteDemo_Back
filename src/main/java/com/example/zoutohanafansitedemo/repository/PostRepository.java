@@ -14,8 +14,8 @@ public class PostRepository {
         this.postMapper = postMapper;
     }
 
-    public List<Post> findAll() {
-        return postMapper.findAll();
+    public List<Post> selectAll() {
+        return postMapper.selectAll();
     }
 
     public Post findById(long id) {
@@ -34,7 +34,7 @@ public class PostRepository {
         return postMapper.fetchListCategory(category);
     }
 
-    public PostView fetchById(long id) {
-        return postMapper.fetchById(id);
+    public PostView selectById(long id) {
+        return postMapper.selectById(id);
     }
 }

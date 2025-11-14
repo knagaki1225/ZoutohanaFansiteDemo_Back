@@ -30,5 +30,30 @@ public interface ReviewMapper {
             is_delete
         FROM Reviews;
     """)
-    List<Review> findAll();
+    List<Review> selectAll();
+
+//    「企画ページ第二次審査」で書評を選択した際のデザインが更新されたら更新
+    @Select("""
+        SELECT
+            id,
+            project_id,
+            user_id,
+            user_nickname,
+            user_address,
+            user_age_group,
+            user_gender,
+            user_self_introduction,
+            book_isbn,
+            book_title,
+            book_publisher,
+            book_author,
+            review_title,
+            review_content,
+            vote_count,
+            created_at
+        FROM Reviews
+        WHERE is_delete = FALSE
+            AND project_id = #{projectId};
+    """)
+    List<Review> selectByProjectId(long projectId);
 }

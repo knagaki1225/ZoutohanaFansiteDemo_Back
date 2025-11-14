@@ -21,7 +21,7 @@ public interface PostMapper {
             updated_at
         FROM posts
     """)
-    List<Post> findAll();
+    List<Post> selectAll();
 
     @Select("""
         SELECT
@@ -96,5 +96,5 @@ public interface PostMapper {
             AND status = 3
             AND id = #{id}
     """)
-    PostView fetchById(long id);
+    PostView selectById(long id);
 }

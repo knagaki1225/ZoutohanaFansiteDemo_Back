@@ -5,6 +5,7 @@ import com.example.zoutohanafansitedemo.service.ReviewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,8 +20,15 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Review>> findAll() {
-        List<Review> reviews = reviewService.findAll();
+    public ResponseEntity<List<Review>> selectReviews(@RequestParam(required = false) Long projectId) {
+        List<Review> reviews;
+
+        if (projectId == null) {
+            reviews = reviewService.selectAll();
+        } else {
+            reviews = reviewService.selectByProjectId(projectId);
+        }
+
         return ResponseEntity.ok(reviews);
     }
 }

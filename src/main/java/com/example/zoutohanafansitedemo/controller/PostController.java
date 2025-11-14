@@ -20,8 +20,8 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> findAll() {
-        List<Post> posts = postService.findAll();
+    public ResponseEntity<List<Post>> selectAll() {
+        List<Post> posts = postService.selectAll();
         return ResponseEntity.ok(posts);
     }
 
@@ -50,8 +50,8 @@ public class PostController {
     }
 
     @GetMapping("/view/{id}")
-    public ResponseEntity<PostView> fetchById(@PathVariable long id) {
-        PostView postView = postService.fetchById(id);
+    public ResponseEntity<PostView> selectById(@PathVariable long id) {
+        PostView postView = postService.selectById(id);
         return ResponseEntity.ok(postView);
     }
 }

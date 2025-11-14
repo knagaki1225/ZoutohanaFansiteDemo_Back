@@ -14,7 +14,11 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    public List<Review> findAll() {
-        return reviewRepository.findAll();
+    public List<Review> selectAll() {
+        return reviewRepository.selectAll();
+    }
+
+    public List<Review> selectByProjectId(long projectId) {
+        return reviewRepository.selectByProjectId(projectId);
     }
 }

@@ -14,7 +14,11 @@ public class ReviewRepository {
         this.reviewMapper = reviewMapper;
     }
 
-    public List<Review> findAll() {
-        return reviewMapper.findAll();
+    public List<Review> selectAll() {
+        return reviewMapper.selectAll();
+    }
+
+    public List<Review> selectByProjectId(long projectId) {
+        return reviewMapper.selectByProjectId(projectId);
     }
 }
