@@ -11,8 +11,8 @@ public class Project {
     private String urlKey;
     private String introduction;
     private String logoImgUrl;
-    private int themeColor;
-    private int status;
+    private String themeColor;
+    private String status;
     private boolean isVisibleBookTitle;
     private boolean isVisibleReviewTitle;
     private boolean isVisibleUserInfo;

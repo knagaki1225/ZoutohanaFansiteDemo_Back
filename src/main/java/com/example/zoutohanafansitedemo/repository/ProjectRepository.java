@@ -2,6 +2,7 @@ package com.example.zoutohanafansitedemo.repository;
 
 import com.example.zoutohanafansitedemo.entity.project.Project;
 import com.example.zoutohanafansitedemo.mapper.ProjectMapper;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,10 @@ public class ProjectRepository {
 
     public ProjectRepository(ProjectMapper projectMapper) {
         this.projectMapper = projectMapper;
+    }
+
+    public List<Project> selectAll() {
+        return projectMapper.selectAll();
     }
 
     public List<Project> selectFourEndProjects(){
