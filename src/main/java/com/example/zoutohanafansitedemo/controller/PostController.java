@@ -3,10 +3,7 @@ package com.example.zoutohanafansitedemo.controller;
 import com.example.zoutohanafansitedemo.entity.post.*;
 import com.example.zoutohanafansitedemo.service.PostService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,15 +40,20 @@ public class PostController {
         return ResponseEntity.ok(postTops);
     }
 
-    @GetMapping("/list/{category}")
-    public ResponseEntity<List<PostList>> fetchListCategory(@PathVariable int category) {
-        List<PostList> postLists = postService.fetchListCategory(category);
-        return ResponseEntity.ok(postLists);
-    }
+//    @GetMapping("/list/{category}")
+//    public ResponseEntity<List<PostList>> fetchListCategory(@PathVariable int category) {
+//        List<PostList> postLists = postService.fetchListCategory(category);
+//        return ResponseEntity.ok(postLists);
+//    }
 
     @GetMapping("/view/{id}")
     public ResponseEntity<PostView> selectById(@PathVariable long id) {
         PostView postView = postService.selectById(id);
         return ResponseEntity.ok(postView);
+    }
+
+    @GetMapping("/list/{category}")
+    public ResponseEntity<PostPagination> fetchPostPagination(@PathVariable int category, @RequestParam(defaultValue = "1") int page){
+        return ResponseEntity.ok(postService.getPostPagination(category, page));
     }
 }
