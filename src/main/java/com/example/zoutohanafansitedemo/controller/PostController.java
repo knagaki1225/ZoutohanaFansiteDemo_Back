@@ -35,13 +35,13 @@ public class PostController {
     }
 
     @GetMapping("/top/{category}")
-    public ResponseEntity<List<PostTop>> fetchTopCategory(@PathVariable int category) {
+    public ResponseEntity<List<PostTop>> fetchTopCategory(@PathVariable String category) {
         List<PostTop> postTops = postService.fetchTopCategory(category);
         return ResponseEntity.ok(postTops);
     }
 
 //    @GetMapping("/list/{category}")
-//    public ResponseEntity<List<PostList>> fetchListCategory(@PathVariable int category) {
+//    public ResponseEntity<List<PostList>> fetchListCategory(@PathVariable String category) {
 //        List<PostList> postLists = postService.fetchListCategory(category);
 //        return ResponseEntity.ok(postLists);
 //    }
@@ -53,7 +53,7 @@ public class PostController {
     }
 
     @GetMapping("/list/{category}")
-    public ResponseEntity<PostPagination> fetchPostPagination(@PathVariable int category, @RequestParam(defaultValue = "1") int page){
+    public ResponseEntity<PostPagination> fetchPostPagination(@PathVariable String category, @RequestParam(defaultValue = "1") int page){
         return ResponseEntity.ok(postService.getPostPagination(category, page));
     }
 }

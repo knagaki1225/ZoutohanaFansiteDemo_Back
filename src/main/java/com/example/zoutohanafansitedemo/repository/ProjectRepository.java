@@ -2,7 +2,6 @@ package com.example.zoutohanafansitedemo.repository;
 
 import com.example.zoutohanafansitedemo.entity.project.Project;
 import com.example.zoutohanafansitedemo.mapper.ProjectMapper;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

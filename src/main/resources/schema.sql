@@ -7,9 +7,9 @@ CREATE TABLE Users (
     self_introduction TEXT,
     address VARCHAR(255),
     birth_year INTEGER,
-    gender INTEGER,
+    gender VARCHAR(255),   -- enums/UserGender
     security_key VARCHAR(255),
-    status INTEGER,
+    status VARCHAR(255),    -- enums/UserStatus
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_delete BOOLEAN DEFAULT FALSE
@@ -30,8 +30,8 @@ CREATE TABLE Projects (
     url_key VARCHAR(255) NOT NULL UNIQUE,
     introduction TEXT,
     logo_img_url VARCHAR(500),
-    theme_color VARCHAR(255),
-    status VARCHAR(255),
+    theme_color VARCHAR(255),   -- enums/ThemeColor
+    status VARCHAR(255),    -- enums/ProjectStatus
     is_visible_book_title BOOLEAN DEFAULT FALSE,
     is_visible_review_title BOOLEAN DEFAULT FALSE,
     is_visible_user_info BOOLEAN DEFAULT FALSE,
@@ -64,7 +64,7 @@ CREATE TABLE Reviews (
     user_nickname VARCHAR(255),
     user_address VARCHAR(255),
     user_age_group INTEGER,
-    user_gender INTEGER,
+    user_gender VARCHAR(255),   -- enums/UserGender
     user_self_introduction TEXT,
     book_isbn BIGINT,
     book_title VARCHAR(500) NOT NULL,
@@ -153,11 +153,11 @@ CREATE TABLE Notification_templates (
 CREATE TABLE Posts (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     admin_id INTEGER NOT NULL,
-    category VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL, -- enums/PostCategory
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     posted_at TIMESTAMP,
-    status INTEGER,
+    status VARCHAR(255) NOT NULL,   -- enums/PostStatus
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_delete BOOLEAN DEFAULT FALSE,
