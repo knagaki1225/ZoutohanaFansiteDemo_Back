@@ -17,15 +17,20 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Review>> selectReviews(@RequestParam(required = false) Long projectId) {
-        List<Review> reviews;
+    public ResponseEntity<List<Review>> selectAll() {
+        List<Review> reviews = reviewService.selectAll();
+        return ResponseEntity.ok(reviews);
+    }
 
-        if (projectId == null) {
-            reviews = reviewService.selectAll();
-        } else {
-            reviews = reviewService.selectByProjectId(projectId);
-        }
+    @GetMapping("/byProject/{projectId}")
+    public ResponseEntity<List<ReviewView>> selectByProjectId(@PathVariable long projectId) {
+        List<ReviewView> reviews = reviewService.selectByProjectId(projectId);
+        return ResponseEntity.ok(reviews);
+    }
 
+    @GetMapping("/byUser/{userId}")
+    public ResponseEntity<List<ReviewMypage>> selectByUserId(@PathVariable long userId) {
+        List<ReviewMypage> reviews = reviewService.selectByUserId(userId);
         return ResponseEntity.ok(reviews);
     }
 
@@ -36,8 +41,8 @@ public class ReviewController {
     }
 
     @GetMapping("/random/{projectId}")
-    public ResponseEntity<List<Review>> selectRandomByProjectId(@PathVariable long projectId) {
-        List<Review> reviews = reviewService.selectRandomByProjectId(projectId);
+    public ResponseEntity<List<ReviewView>> selectRandomByProjectId(@PathVariable long projectId) {
+        List<ReviewView> reviews = reviewService.selectRandomByProjectId(projectId);
         return ResponseEntity.ok(reviews);
     }
 }

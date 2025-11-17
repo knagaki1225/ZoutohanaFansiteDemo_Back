@@ -9,31 +9,13 @@ import java.util.List;
 public interface PostMapper {
 //    ==========ここからデバッグ用(削除済み・非表示も返す)==========
     @Select("""
-        SELECT
-            id,
-            admin_id,
-            category,
-            title,
-            content,
-            posted_at,
-            status,
-            created_at,
-            updated_at
+        SELECT *
         FROM posts
     """)
     List<Post> selectAll();
 
     @Select("""
-        SELECT
-            id,
-            admin_id,
-            category,
-            title,
-            content,
-            posted_at,
-            status,
-            created_at,
-            updated_at
+        SELECT *
         FROM posts
         WHERE id = #{id}
     """)
