@@ -18,6 +18,10 @@ public class ReviewRepository {
         return reviewMapper.selectAll();
     }
 
+    public Review findById(long id) {
+        return reviewMapper.findById(id);
+    }
+
     public List<Review> selectByProjectId(long projectId) {
         return reviewMapper.selectByProjectId(projectId);
     }

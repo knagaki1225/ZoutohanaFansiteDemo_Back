@@ -18,6 +18,10 @@ public class ReviewService {
         return reviewRepository.selectAll();
     }
 
+    public Review findById(long id) {
+        return reviewRepository.findById(id);
+    }
+
     public List<Review> selectByProjectId(long projectId) {
         return reviewRepository.selectByProjectId(projectId);
     }
