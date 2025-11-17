@@ -22,11 +22,15 @@ public class ReviewService {
         return reviewRepository.findById(id);
     }
 
-    public List<Review> selectByProjectId(long projectId) {
+    public List<ReviewView> selectByProjectId(long projectId) {
         return reviewRepository.selectByProjectId(projectId);
     }
 
-    public List<Review> selectRandomByProjectId(long projectId) {
+    public List<ReviewView> selectRandomByProjectId(long projectId) {
         return reviewRepository.selectRandomByProjectId(projectId);
+    }
+
+    public List<ReviewMypage> selectByUserId(long userId) {
+        return reviewRepository.selectByUserId(userId);
     }
 }

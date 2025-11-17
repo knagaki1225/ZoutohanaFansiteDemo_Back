@@ -9,51 +9,13 @@ import java.util.List;
 public interface ReviewMapper {
 //    ==========ここからデバッグ用(削除済みも返す)==========
     @Select("""
-        SELECT
-            id,
-            project_id,
-            user_id,
-            user_nickname,
-            user_address,
-            user_age_group,
-            user_gender,
-            user_self_introduction,
-            book_isbn,
-            book_title,
-            book_publisher,
-            book_author,
-            review_title,
-            review_content,
-            review_content_edited,
-            vote_count,
-            created_at,
-            updated_at,
-            is_delete
+        SELECT *
         FROM Reviews;
     """)
     List<Review> selectAll();
 
     @Select("""
-        SELECT
-            id,
-            project_id,
-            user_id,
-            user_nickname,
-            user_address,
-            user_age_group,
-            user_gender,
-            user_self_introduction,
-            book_isbn,
-            book_title,
-            book_publisher,
-            book_author,
-            review_title,
-            review_content,
-            review_content_edited,
-            vote_count,
-            created_at,
-            updated_at,
-            is_delete
+        SELECT *
         FROM Reviews
         WHERE id = #{id};
     """)
@@ -84,7 +46,7 @@ public interface ReviewMapper {
         WHERE is_delete = FALSE
             AND project_id = #{projectId};
     """)
-    List<Review> selectByProjectId(long projectId);
+    List<ReviewView> selectByProjectId(long projectId);
 
     @Select("""
         SELECT
@@ -110,6 +72,25 @@ public interface ReviewMapper {
         ORDER BY RAND()
         LIMIT 18;
     """)
-    List<Review> selectRandomByProjectId(long projectId);
+    List<ReviewView> selectRandomByProjectId(long projectId);
+
+    @Select("""
+        SELECT
+            id,
+            project_id,
+            user_id,
+            book_isbn,
+            book_title,
+            book_publisher,
+            book_author,
+            review_title,
+            review_content,
+            vote_count,
+            created_at
+        FROM Reviews
+        WHERE is_delete = FALSE
+            AND user_id = #{userId};
+    """)
+    List<ReviewMypage> selectByUserId(long userId);
 
 }
