@@ -7,9 +7,9 @@ CREATE TABLE Users (
     self_introduction TEXT,
     address VARCHAR(255),
     birth_year INTEGER,
-    gender INTEGER,
+    gender VARCHAR(255),   -- enums/UserGender
     security_key VARCHAR(255),
-    status INTEGER,
+    status VARCHAR(255),    -- enums/UserStatus
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_delete BOOLEAN DEFAULT FALSE
@@ -64,7 +64,7 @@ CREATE TABLE Reviews (
     user_nickname VARCHAR(255),
     user_address VARCHAR(255),
     user_age_group INTEGER,
-    user_gender INTEGER,
+    user_gender VARCHAR(255),   -- enums/UserGender
     user_self_introduction TEXT,
     book_isbn BIGINT,
     book_title VARCHAR(500) NOT NULL,

@@ -12,7 +12,7 @@ public class Review {
     private String userNickname;
     private String userAddress;
     private int userAgeGroup;
-    private int userGender;
+    private String userGender;  // enums/UserGender
     private String userSelfIntroduction;
     private long bookIsbn;
     private String bookTitle;
