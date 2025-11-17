@@ -25,4 +25,8 @@ public class ReviewService {
     public List<Review> selectByProjectId(long projectId) {
         return reviewRepository.selectByProjectId(projectId);
     }
+
+    public List<Review> selectRandomByProjectId(long projectId) {
+        return reviewRepository.selectRandomByProjectId(projectId);
+    }
 }

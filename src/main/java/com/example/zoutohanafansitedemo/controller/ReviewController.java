@@ -34,4 +34,10 @@ public class ReviewController {
         Review review = reviewService.findById(id);
         return ResponseEntity.ok(review);
     }
+
+    @GetMapping("/random/{projectId}")
+    public ResponseEntity<List<Review>> selectRandomByProjectId(@PathVariable long projectId) {
+        List<Review> reviews = reviewService.selectRandomByProjectId(projectId);
+        return ResponseEntity.ok(reviews);
+    }
 }
