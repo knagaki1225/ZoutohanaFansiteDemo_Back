@@ -25,4 +25,8 @@ public class ReviewRepository {
     public List<Review> selectByProjectId(long projectId) {
         return reviewMapper.selectByProjectId(projectId);
     }
+
+    public List<Review> selectRandomByProjectId(long projectId) {
+        return reviewMapper.selectRandomByProjectId(projectId);
+    }
 }
