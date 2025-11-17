@@ -2,8 +2,6 @@ package com.example.zoutohanafansitedemo.service;
 
 import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
 import com.example.zoutohanafansitedemo.entity.post.*;
-import com.example.zoutohanafansitedemo.entity.project.Project;
-import com.example.zoutohanafansitedemo.entity.project.ProjectList;
 import com.example.zoutohanafansitedemo.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +29,11 @@ public class PostService {
         return postRepository.fetchTopLatest();
     }
 
-    public List<PostTop> fetchTopCategory(int category) {
+    public List<PostTop> fetchTopCategory(String category) {
         return postRepository.fetchTopCategory(category);
     }
 
-    public List<PostList> fetchListCategory(int category) {
+    public List<PostList> fetchListCategory(String category) {
         return postRepository.fetchListCategory(category);
     }
 
@@ -43,7 +41,7 @@ public class PostService {
         return postRepository.selectById(id);
     }
 
-    public PostPagination getPostPagination(int category, int page){
+    public PostPagination getPostPagination(String category, int page) {
         List<PostList> posts = fetchListCategory(category);
         List<PostList> resultPosts = new ArrayList<>();
 

@@ -30,8 +30,8 @@ CREATE TABLE Projects (
     url_key VARCHAR(255) NOT NULL UNIQUE,
     introduction TEXT,
     logo_img_url VARCHAR(500),
-    theme_color VARCHAR(255),
-    status VARCHAR(255),
+    theme_color VARCHAR(255),   -- enums/ThemeColor
+    status VARCHAR(255),    -- enums/ProjectStatus
     is_visible_book_title BOOLEAN DEFAULT FALSE,
     is_visible_review_title BOOLEAN DEFAULT FALSE,
     is_visible_user_info BOOLEAN DEFAULT FALSE,
@@ -153,11 +153,11 @@ CREATE TABLE Notification_templates (
 CREATE TABLE Posts (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     admin_id INTEGER NOT NULL,
-    category VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL, -- enums/PostCategory
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     posted_at TIMESTAMP,
-    status INTEGER,
+    status VARCHAR(255) NOT NULL,   -- enums/PostStatus
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_delete BOOLEAN DEFAULT FALSE,

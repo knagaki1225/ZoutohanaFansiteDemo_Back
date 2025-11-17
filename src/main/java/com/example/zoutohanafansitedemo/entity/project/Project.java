@@ -11,8 +11,8 @@ public class Project {
     private String urlKey;
     private String introduction;
     private String logoImgUrl;
-    private String themeColor;
-    private String status;
+    private String themeColor;  // enums/ThemeColor
+    private String status;  // enums/ProjectStatus
     private boolean isVisibleBookTitle;
     private boolean isVisibleReviewTitle;
     private boolean isVisibleUserInfo;

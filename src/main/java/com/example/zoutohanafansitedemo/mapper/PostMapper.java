@@ -49,7 +49,7 @@ public interface PostMapper {
             posted_at
         FROM posts
         WHERE is_delete = false
-            AND status = 3
+            AND status = 'PUBLIC'
         ORDER BY posted_at DESC
         LIMIT 0, 4
     """)
@@ -63,12 +63,12 @@ public interface PostMapper {
             posted_at
         FROM posts
         WHERE is_delete = false
-            AND status = 3
+            AND status = 'PUBLIC'
             AND category = #{category}
         ORDER BY posted_at DESC
         LIMIT 0, 4
     """)
-    List<PostTop> fetchTopCategory(int category);
+    List<PostTop> fetchTopCategory(String category);
 
     @Select("""
         SELECT
@@ -78,11 +78,11 @@ public interface PostMapper {
             posted_at
         FROM posts
         WHERE is_delete = false
-            AND status = 3
+            AND status = 'PUBLIC'
             AND category = #{category}
         ORDER BY posted_at DESC
     """)
-    List<PostList> fetchListCategory(int category);
+    List<PostList> fetchListCategory(String category);
 
     @Select("""
         SELECT
@@ -93,7 +93,7 @@ public interface PostMapper {
             posted_at
         FROM posts
         WHERE is_delete = false
-            AND status = 3
+            AND status = 'PUBLIC'
             AND id = #{id}
     """)
     PostView selectById(long id);
