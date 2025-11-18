@@ -1,5 +1,6 @@
 package com.example.zoutohanafansitedemo.entity.post;
 
+import com.example.zoutohanafansitedemo.entity.enums.PostCategory;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class PostView {
     private long id;
-    private String category;    // enums/PostCategory
+    private PostCategory category;    // enums/PostCategory
     private String title;
     private String content;
     private LocalDateTime postedAt;

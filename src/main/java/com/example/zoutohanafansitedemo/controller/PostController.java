@@ -2,6 +2,7 @@ package com.example.zoutohanafansitedemo.controller;
 
 import com.example.zoutohanafansitedemo.entity.post.*;
 import com.example.zoutohanafansitedemo.service.PostService;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,5 +56,12 @@ public class PostController {
     @GetMapping("/list/{category}")
     public ResponseEntity<PostPagination> fetchPostPagination(@PathVariable String category, @RequestParam(defaultValue = "1") int page){
         return ResponseEntity.ok(postService.getPostPagination(category, page));
+    }
+
+    @GetMapping("/test/{id}")
+    public ResponseEntity<String> testById(@PathVariable long id){
+        PostView postView = postService.selectById(id);
+        String str = postView.getCategory().getLabel();
+        return ResponseEntity.ok(str);
     }
 }
