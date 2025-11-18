@@ -22,27 +22,27 @@ public class ReviewController {
         return ResponseEntity.ok(reviews);
     }
 
-    @GetMapping("/byProject/{projectId}")
-    public ResponseEntity<List<ReviewView>> selectByProjectId(@PathVariable long projectId) {
-        List<ReviewView> reviews = reviewService.selectByProjectId(projectId);
-        return ResponseEntity.ok(reviews);
-    }
-
-    @GetMapping("/byUser/{userId}")
-    public ResponseEntity<List<ReviewMypage>> selectByUserId(@PathVariable long userId) {
-        List<ReviewMypage> reviews = reviewService.selectByUserId(userId);
-        return ResponseEntity.ok(reviews);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Review> findById(@PathVariable long id) {
         Review review = reviewService.findById(id);
         return ResponseEntity.ok(review);
     }
 
-    @GetMapping("/random/{projectId}")
-    public ResponseEntity<List<ReviewView>> selectRandomByProjectId(@PathVariable long projectId) {
-        List<ReviewView> reviews = reviewService.selectRandomByProjectId(projectId);
+    @GetMapping("/byProject/{projectId}")
+    public ResponseEntity<List<ReviewView>> selectByProjectId(@PathVariable long projectId, @RequestParam(required = false) String mode) {
+        List<ReviewView> reviews;
+        if("karuta".equals(mode)) {
+            reviews = reviewService.selectRandomByProjectId(projectId);
+        } else {
+            reviews = reviewService.selectByProjectId(projectId);
+        }
+
+        return ResponseEntity.ok(reviews);
+    }
+
+    @GetMapping("/byUser/{userId}")
+    public ResponseEntity<List<ReviewMypage>> selectByUserId(@PathVariable long userId) {
+        List<ReviewMypage> reviews = reviewService.selectByUserId(userId);
         return ResponseEntity.ok(reviews);
     }
 }
