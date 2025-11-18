@@ -1,5 +1,6 @@
 package com.example.zoutohanafansitedemo.entity.review;
 
+import com.example.zoutohanafansitedemo.entity.enums.UserGender;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ public class ReviewView {
     private String userNickname;
     private String userAddress;
     private int userAgeGroup;
-    private String userGender;  // enums/UserGender
+    private UserGender userGender;  // enums/UserGender
     private String userSelfIntroduction;
     private long bookIsbn;
     private String bookTitle;
