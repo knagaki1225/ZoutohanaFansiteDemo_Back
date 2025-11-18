@@ -93,4 +93,37 @@ public interface ReviewMapper {
     """)
     List<ReviewMypage> selectByUserId(long userId);
 
+    @Insert("""
+        INSERT INTO Reviews (
+            project_id,
+            user_id,
+            user_nickname,
+            user_address,
+            user_age_group,
+            user_gender,
+            user_self_introduction,
+            book_isbn,
+            book_title,
+            book_publisher,
+            book_author,
+            review_title,
+            review_content
+        ) VALUES (
+            #{projectId},
+            #{userId},
+            #{userNickname},
+            #{userAddress},
+            #{userAgeGroup},
+            #{userGender},
+            #{userSelfIntroduction},
+            #{bookIsbn},
+            #{bookTitle},
+            #{bookPublisher},
+            #{bookAuthor},
+            #{reviewTitle},
+            #{reviewContent}
+        )
+    """)
+    @Options(useGeneratedKeys = true, keyProperty = "id,createdAt,updatedAt")
+    int insert(Review review);
 }
