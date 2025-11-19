@@ -2,6 +2,7 @@ package com.example.zoutohanafansitedemo.controller;
 
 import com.example.zoutohanafansitedemo.entity.review.*;
 import com.example.zoutohanafansitedemo.service.ReviewService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+//    ==========ここからデバッグ用(削除済み・非表示も返す)==========
     @GetMapping
     public ResponseEntity<List<Review>> selectAll() {
         List<Review> reviews = reviewService.selectAll();
@@ -30,6 +32,7 @@ public class ReviewController {
         Review review = reviewService.findById(id);
         return ResponseEntity.ok(review);
     }
+//    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
 
     @GetMapping("/byProject/{projectId}")
     public ResponseEntity<List<ReviewView>> selectByProjectId(@PathVariable long projectId, @RequestParam(required = false) String mode) {
@@ -50,7 +53,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<Review> insert(@RequestBody Review review,
+    public ResponseEntity<Review> insert(@Valid @RequestBody Review review,
                                          UriComponentsBuilder uriComponentsBuilder) {
         Review createdReview = reviewService.insert(review);
         URI location = uriComponentsBuilder.path("/api/reviews/{id}")

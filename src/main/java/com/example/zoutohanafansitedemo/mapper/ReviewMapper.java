@@ -124,6 +124,6 @@ public interface ReviewMapper {
             #{reviewContent}
         )
     """)
-    @Options(useGeneratedKeys = true, keyProperty = "id,createdAt,updatedAt")
+    @Options(useGeneratedKeys = true, keyProperty = "id,createdAt,updatedAt", keyColumn = "id,created_at,updated_at")
     int insert(Review review);
 }
