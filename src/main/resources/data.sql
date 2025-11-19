@@ -460,3 +460,7 @@ VALUES
     (1, 'PROJECT',  '削除された企画情報のお知らせ', '削除された企画情報のお知らせのサンプルです。色はにほへど散りぬるを我が世たれぞ常ならむ有為の奥山今日越えて浅き夢見じ酔ひもせず', '2025-11-04 04:00:00', 'PUBLIC', TRUE),
     (1, 'DONATION',  '非表示の寄贈情報のお知らせ', '非表示の寄贈情報のお知らせのサンプルです。色はにほへど散りぬるを我が世たれぞ常ならむ有為の奥山今日越えて浅き夢見じ酔ひもせず', '2025-11-04 04:00:00', 'PRIVATE', FALSE),
     (1, 'ELSE',  '下書きのその他情報のお知らせ', '下書きのその他情報のお知らせのサンプルです。色はにほへど散りぬるを我が世たれぞ常ならむ有為の奥山今日越えて浅き夢見じ酔ひもせず', '2025-11-04 04:00:00', 'DRAFT', FALSE);
+
+INSERT INTO users (login_id, nickname, password) VALUES
+                                                     ('sample','sample',  '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG'),
+                                                     ('test','test',  '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG');
