@@ -37,7 +37,14 @@ public class ReviewService {
         return reviewRepository.selectByUserId(userId);
     }
 
-    public Review insert(Review review) {
+    public Review insert(Review review, CustomUserDetails userDetails) {
+        review.setUserId(userDetails.getId());
+        review.setUserNickname(userDetails.getNickname());
+        review.setUserAddress(userDetails.getAddress());
+        review.setUserAgeGroup(userDetails.getAgeGroup());
+        review.setUserGender(userDetails.getGender());
+        review.setUserSelfIntroduction(userDetails.getSelfIntroduction());
+
         reviewRepository.insert(review);
         return review;
     }
