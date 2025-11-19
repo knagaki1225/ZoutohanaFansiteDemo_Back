@@ -17,6 +17,7 @@ public class PostController {
         this.postService = postService;
     }
 
+//    ==========ここからデバッグ用(削除済み・非表示も返す)==========
     @GetMapping
     public ResponseEntity<List<Post>> selectAll() {
         List<Post> posts = postService.selectAll();
@@ -28,6 +29,7 @@ public class PostController {
         Post post = postService.findById(id);
         return ResponseEntity.ok(post);
     }
+//    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
 
     @GetMapping("/top/latest")
     public ResponseEntity<List<PostTop>> fetchTopLatest() {
