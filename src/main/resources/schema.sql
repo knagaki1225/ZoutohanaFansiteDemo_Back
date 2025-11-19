@@ -9,7 +9,7 @@ CREATE TABLE Users (
     birth_year INTEGER,
     gender VARCHAR(255),   -- enums/UserGender
     security_key VARCHAR(255),
-    status VARCHAR(255),    -- enums/UserStatus
+    status VARCHAR(255) DEFAULT 'ACTIVE',    -- enums/UserStatus
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_delete BOOLEAN DEFAULT FALSE
