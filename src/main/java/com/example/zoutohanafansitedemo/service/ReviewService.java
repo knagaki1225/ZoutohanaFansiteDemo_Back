@@ -1,6 +1,7 @@
 package com.example.zoutohanafansitedemo.service;
 
 import com.example.zoutohanafansitedemo.entity.review.*;
+import com.example.zoutohanafansitedemo.mapper.ReviewMapper;
 import com.example.zoutohanafansitedemo.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +10,11 @@ import java.util.List;
 @Service
 public class ReviewService {
     private final ReviewRepository reviewRepository;
+    private final ReviewMapper reviewMapper;
 
-    public ReviewService(ReviewRepository reviewRepository) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper) {
         this.reviewRepository = reviewRepository;
+        this.reviewMapper = reviewMapper;
     }
 
     public List<Review> selectAll() {
@@ -32,5 +35,17 @@ public class ReviewService {
 
     public List<ReviewMypage> selectByUserId(long userId) {
         return reviewRepository.selectByUserId(userId);
+    }
+
+    public Review insert(Review review, CustomUserDetails userDetails) {
+        review.setUserId(userDetails.getId());
+        review.setUserNickname(userDetails.getNickname());
+        review.setUserAddress(userDetails.getAddress());
+        review.setUserAgeGroup(userDetails.getAgeGroup());
+        review.setUserGender(userDetails.getGender());
+        review.setUserSelfIntroduction(userDetails.getSelfIntroduction());
+
+        reviewRepository.insert(review);
+        return review;
     }
 }

@@ -33,4 +33,8 @@ public class ReviewRepository {
     public List<ReviewMypage> selectByUserId(long userId) {
         return reviewMapper.selectByUserId(userId);
     }
+
+    public int insert(Review review) {
+        return reviewMapper.insert(review);
+    }
 }
