@@ -1,5 +1,6 @@
 package com.example.zoutohanafansitedemo.controller;
 
+import com.example.zoutohanafansitedemo.auth.CustomUserDetails;
 import com.example.zoutohanafansitedemo.entity.review.*;
 import com.example.zoutohanafansitedemo.service.ReviewService;
 import jakarta.validation.Valid;
@@ -57,7 +58,7 @@ public class ReviewController {
     public ResponseEntity<Review> insert(@Valid @RequestBody Review review,
                                          @AuthenticationPrincipal CustomUserDetails userDetails,
                                          UriComponentsBuilder uriComponentsBuilder) {
-        Review createdReview = reviewService.insert(review);
+        Review createdReview = reviewService.insert(review, userDetails);
         URI location = uriComponentsBuilder.path("/api/reviews/{id}")
                 .buildAndExpand(createdReview.getId()).toUri();
         HttpHeaders headers = new HttpHeaders();

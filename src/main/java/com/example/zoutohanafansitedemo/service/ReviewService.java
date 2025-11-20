@@ -1,5 +1,6 @@
 package com.example.zoutohanafansitedemo.service;
 
+import com.example.zoutohanafansitedemo.auth.CustomUserDetails;
 import com.example.zoutohanafansitedemo.entity.review.*;
 import com.example.zoutohanafansitedemo.mapper.ReviewMapper;
 import com.example.zoutohanafansitedemo.repository.ReviewRepository;
@@ -41,7 +42,7 @@ public class ReviewService {
         review.setUserId(userDetails.getId());
         review.setUserNickname(userDetails.getNickname());
         review.setUserAddress(userDetails.getAddress());
-        review.setUserAgeGroup(userDetails.getAgeGroup());
+        review.setUserAgeGroup(userDetails.getBirthYear());
         review.setUserGender(userDetails.getGender());
         review.setUserSelfIntroduction(userDetails.getSelfIntroduction());
 
