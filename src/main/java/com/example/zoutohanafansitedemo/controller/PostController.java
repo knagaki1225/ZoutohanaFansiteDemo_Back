@@ -59,11 +59,4 @@ public class PostController {
     public ResponseEntity<PostPagination> fetchPostPagination(@PathVariable String category, @RequestParam(defaultValue = "1") int page){
         return ResponseEntity.ok(postService.getPostPagination(category, page));
     }
-
-    @GetMapping("/test/{id}")
-    public ResponseEntity<String> testById(@PathVariable long id){
-        PostView postView = postService.selectById(id);
-        String str = postView.getCategory().getLabel();
-        return ResponseEntity.ok(str);
-    }
 }

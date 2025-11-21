@@ -4,6 +4,7 @@ import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
 import com.example.zoutohanafansitedemo.entity.project.Project;
 import com.example.zoutohanafansitedemo.entity.project.ProjectList;
 import com.example.zoutohanafansitedemo.entity.project.ProjectPagination;
+import com.example.zoutohanafansitedemo.exception.InvalidPaginationException;
 import com.example.zoutohanafansitedemo.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,10 @@ public class ProjectService {
     }
 
     public ProjectPagination getProjectPagination(int page){
+        if(page < 1){
+            throw new InvalidPaginationException("Invalid page number");
+        }
+
         List<Project> projects = projectRepository.selectEndProjects();
         List<ProjectList> projectLists = new ArrayList<>();
 

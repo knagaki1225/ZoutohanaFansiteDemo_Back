@@ -4,13 +4,19 @@ import com.example.zoutohanafansitedemo.entity.auth.LoginRequest;
 import com.example.zoutohanafansitedemo.entity.auth.LoginResponse;
 import com.example.zoutohanafansitedemo.entity.auth.UserRegisterRequest;
 import com.example.zoutohanafansitedemo.entity.auth.UserRegisterResponse;
+import com.example.zoutohanafansitedemo.entity.enums.UserStatus;
 import com.example.zoutohanafansitedemo.entity.user.User;
+import com.example.zoutohanafansitedemo.exception.AccountDisabledException;
+import com.example.zoutohanafansitedemo.exception.LoginArgumentNotValidException;
+import com.example.zoutohanafansitedemo.exception.UserRegistrationException;
 import com.example.zoutohanafansitedemo.repository.UserRepository;
 import com.example.zoutohanafansitedemo.service.GenerateSecurityKeyService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Service
 public class AuthenticationService {
@@ -29,11 +35,11 @@ public class AuthenticationService {
     // 認証してレスポンスを返す
     public LoginResponse authentication(LoginRequest loginRequest) {
         if (loginRequest.getLoginId() == null || loginRequest.getLoginId().isEmpty()) {
-//            throw new LoginArgumentNotValidException("username is empty");
+            throw new LoginArgumentNotValidException("login id was empty");
         }
 
         if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
-//            throw new LoginArgumentNotValidException("password is empty");
+            throw new LoginArgumentNotValidException("password was empty");
         }
 
         // 認証
@@ -43,6 +49,11 @@ public class AuthenticationService {
                         loginRequest.getPassword()
                 )
         );
+
+        User user = userRepository.selectUserByLoginId(loginRequest.getLoginId());
+        if(user.getStatus() != UserStatus.ACTIVE){
+            throw new AccountDisabledException("This account has been suspended");
+        }
 
         // JWTトークンの生成
         String token = jwtService.generateToken(loginRequest.getLoginId());
@@ -54,15 +65,38 @@ public class AuthenticationService {
 
     public UserRegisterResponse registerUser(UserRegisterRequest  userRegisterRequest) {
         if(userRegisterRequest.getLoginId() == null || userRegisterRequest.getLoginId().isEmpty()){
-//            throw new UserRegistrationException("username is empty");
+            throw new UserRegistrationException("login id was empty");
         }
 
         if(userRegisterRequest.getPassword() == null || userRegisterRequest.getPassword().isEmpty()){
-//            throw new UserRegistrationException("password is empty");
+            throw new UserRegistrationException("password was empty");
         }
 
         if(userRepository.selectUserByLoginId(userRegisterRequest.getLoginId())!=null){
-//            throw new UserRegistrationException("username is exist");
+            throw new UserRegistrationException("login id was exist");
+        }
+
+        if(userRegisterRequest.getNickname() == null || userRegisterRequest.getNickname().isEmpty()){
+            throw new UserRegistrationException("nickname was empty");
+        }
+
+        if(userRegisterRequest.getAddress() == null || userRegisterRequest.getAddress().isEmpty()){
+            throw new UserRegistrationException("address was empty");
+        }
+
+        Integer userBirthYear = userRegisterRequest.getBirthYear();
+        int nowYear = LocalDate.now().getYear();
+
+        if(userBirthYear == null){
+            throw new UserRegistrationException("birth year was null");
+        }
+
+        if(userBirthYear < 1930 || userBirthYear > nowYear){
+            throw new UserRegistrationException("birth year was out of range");
+        }
+
+        if(userRegisterRequest.getGender() == null){
+            throw new UserRegistrationException("gender was empty");
         }
 
         String hashedPassword = passwordEncoder.encode(userRegisterRequest.getPassword());

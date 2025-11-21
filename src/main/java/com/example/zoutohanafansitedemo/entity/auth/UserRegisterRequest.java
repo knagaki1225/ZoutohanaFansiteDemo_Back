@@ -10,6 +10,6 @@ public class UserRegisterRequest {
     private String nickname;
     private String selfIntroduction;
     private String address;
-    private int birthYear;
+    private Integer birthYear;
     private UserGender gender;
 }
