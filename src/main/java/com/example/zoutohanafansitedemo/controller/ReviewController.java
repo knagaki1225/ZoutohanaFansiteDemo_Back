@@ -48,13 +48,13 @@ public class ReviewController {
         return ResponseEntity.ok(reviews);
     }
 
-    @GetMapping("/byUser/{userId}")
+    @GetMapping("/authenticated/byUser/{userId}")
     public ResponseEntity<List<ReviewMypage>> selectByUserId(@PathVariable long userId) {
         List<ReviewMypage> reviews = reviewService.selectByUserId(userId);
         return ResponseEntity.ok(reviews);
     }
 
-    @PostMapping
+    @PostMapping("/authenticated/new")
     public ResponseEntity<Review> insert(@Valid @RequestBody Review review,
                                          @AuthenticationPrincipal CustomUserDetails userDetails,
                                          UriComponentsBuilder uriComponentsBuilder) {
