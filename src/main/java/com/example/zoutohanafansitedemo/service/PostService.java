@@ -1,7 +1,11 @@
 package com.example.zoutohanafansitedemo.service;
 
+import com.example.zoutohanafansitedemo.entity.enums.PostCategory;
 import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
 import com.example.zoutohanafansitedemo.entity.post.*;
+import com.example.zoutohanafansitedemo.exception.InvalidCategoryException;
+import com.example.zoutohanafansitedemo.exception.InvalidPaginationException;
+import com.example.zoutohanafansitedemo.exception.PostNotFoundException;
 import com.example.zoutohanafansitedemo.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +34,17 @@ public class PostService {
     }
 
     public List<PostTop> fetchTopCategory(String category) {
-        return postRepository.fetchTopCategory(category);
+        String searchStr = category.toUpperCase();
+
+        try{
+            PostCategory.valueOf(searchStr);
+        }catch(IllegalArgumentException e){
+            throw new InvalidCategoryException("Invalid category");
+        }
+
+
+        List<PostTop> returnList = postRepository.fetchTopCategory(searchStr);
+        return returnList;
     }
 
     public List<PostList> fetchListCategory(String category) {
@@ -38,11 +52,30 @@ public class PostService {
     }
 
     public PostView selectById(long id) {
-        return postRepository.selectById(id);
+        PostView postView = postRepository.selectById(id);
+
+        if(postView == null){
+            throw new PostNotFoundException("Post not found");
+        }
+
+        return postView;
     }
 
     public PostPagination getPostPagination(String category, int page) {
-        List<PostList> posts = fetchListCategory(category);
+        String searchStr = category.toUpperCase();
+
+        try{
+            PostCategory.valueOf(searchStr);
+        }catch(IllegalArgumentException e){
+            throw new InvalidCategoryException("Invalid category");
+        }
+
+        if(page < 1){
+            throw new InvalidPaginationException("Invalid page number");
+        }
+
+
+        List<PostList> posts = fetchListCategory(searchStr);
         List<PostList> resultPosts = new ArrayList<>();
 
         int size = posts.size();

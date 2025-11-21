@@ -459,3 +459,7 @@ VALUES
 INSERT INTO users (login_id, nickname, password) VALUES
                                                      ('sample','sample',  '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG'),
                                                      ('test','test',  '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG');
+
+INSERT INTO users (login_id, nickname, password, status) VALUES
+                                                     ('stop','sample',  '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG', 'SUSPENDED'),
+                                                     ('ban','test',  '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG', 'BAN');

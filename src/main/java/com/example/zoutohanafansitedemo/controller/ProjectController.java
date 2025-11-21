@@ -20,7 +20,7 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-//    ==========ここからデバッグ用(削除済み・非表示も返す)==========
+    //    ==========ここからデバッグ用(削除済み・非表示も返す)==========
     @GetMapping
     public ResponseEntity<List<Project>> getAll() {
         List<Project> projects = projectService.getAll();
@@ -29,10 +29,10 @@ public class ProjectController {
 //    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
 
     @GetMapping("/top/end")
-    public ResponseEntity<List<ProjectTopPageEnd>> getTopProjects(){
+    public ResponseEntity<List<ProjectTopPageEnd>> getTopProjects() {
         List<Project> projects = projectService.getFourEndProject();
         List<ProjectTopPageEnd> topProjects = new ArrayList<>();
-        for (Project project : projects){
+        for (Project project : projects) {
             topProjects.add(new ProjectTopPageEnd(project.getId(), project.getUrlKey(), project.getName(), project.getStartAt(), project.getEndAt()));
         }
 
@@ -40,10 +40,10 @@ public class ProjectController {
     }
 
     @GetMapping("/top/progress")
-    public ResponseEntity<List<ProjectProgress>> getTopProjectsProgress(){
+    public ResponseEntity<List<ProjectProgress>> getTopProjectsProgress() {
         List<Project> projects = projectService.getProgressProjects();
         List<ProjectProgress> topProjects = new ArrayList<>();
-        for (Project project : projects){
+        for (Project project : projects) {
             topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getLogoImgUrl(), project.getStartAt(), project.getEndAt(), project.getIntroduction()));
         }
 
@@ -51,7 +51,7 @@ public class ProjectController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<ProjectPagination> getListPageProjectEnd(@RequestParam(defaultValue = "1") int page){
+    public ResponseEntity<ProjectPagination> getListPageProjectEnd(@RequestParam(defaultValue = "1") int page) {
         ProjectPagination pp = projectService.getProjectPagination(page);
         return ResponseEntity.ok(pp);
     }
