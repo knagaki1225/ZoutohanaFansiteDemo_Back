@@ -8,13 +8,20 @@ import java.security.SecureRandom;
 public class GenerateSecurityKeyService {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final SecureRandom random = new SecureRandom();
-    private static final int length = 8;
+    private static final int length = 4;
 
     public static String generateSecurityKey() {
-        StringBuilder sb = new StringBuilder(length);
+        StringBuilder sb1 = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
-            sb.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+            sb1.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
         }
-        return sb.toString();
+
+        StringBuilder sb2 = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb2.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+        }
+
+        String securityKey = sb1.toString() + "-" + sb2.toString();
+        return securityKey;
     }
 }

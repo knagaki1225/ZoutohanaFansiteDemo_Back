@@ -6,6 +6,7 @@ import com.example.zoutohanafansitedemo.mapper.ReviewMapper;
 import com.example.zoutohanafansitedemo.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -16,6 +17,12 @@ public class ReviewService {
     public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper) {
         this.reviewRepository = reviewRepository;
         this.reviewMapper = reviewMapper;
+    }
+
+    private int toAgeGroup(int birthYear){
+        int currentYear = LocalDate.now().getYear();
+        int age = currentYear - birthYear;
+        return (age / 10) * 10;
     }
 
     public List<Review> selectAll() {
@@ -42,7 +49,7 @@ public class ReviewService {
         review.setUserId(userDetails.getId());
         review.setUserNickname(userDetails.getNickname());
         review.setUserAddress(userDetails.getAddress());
-        review.setUserAgeGroup(userDetails.getBirthYear());
+        review.setUserAgeGroup(toAgeGroup(userDetails.getBirthYear()));
         review.setUserGender(userDetails.getGender());
         review.setUserSelfIntroduction(userDetails.getSelfIntroduction());
 
