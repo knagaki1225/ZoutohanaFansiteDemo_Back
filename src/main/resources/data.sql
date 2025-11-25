@@ -1,6 +1,6 @@
 INSERT INTO Users (login_id, nickname, password, self_introduction, address, birth_year, gender, security_key, status)
 VALUES
-    ('user1', '1_ダミーユーザー', 'password1', 'これは1_ダミーの自己紹介です', '1_ダミー住所', 1990, 'MALE', 'key1', 'ACTIVE'),
+    ('user1', '1_ダミーユーザー', '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG', 'これは1_ダミーの自己紹介です', '1_ダミー住所', 1990, 'MALE', 'key1', 'ACTIVE'),
     ('user2', '2_ダミーユーザー', 'password2', 'これは2_ダミーの自己紹介です', '2_ダミー住所', 1991, 'FEMALE', 'key2', 'ACTIVE'),
     ('user3', '3_ダミーユーザー', 'password3', 'これは3_ダミーの自己紹介です', '3_ダミー住所', 1992, 'MALE', 'key3', 'ACTIVE'),
     ('user4', '4_ダミーユーザー', 'password4', 'これは4_ダミーの自己紹介です', '4_ダミー住所', 1993, 'FEMALE', 'key4', 'ACTIVE'),

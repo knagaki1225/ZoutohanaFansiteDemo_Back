@@ -19,4 +19,8 @@ public class UserRepository {
     public void insertUser(User user){
         userMapper.insertUser(user);
     }
+
+    public void updatePassword(String password, String securityKey, String loginId){
+        userMapper.updatePassword(password, securityKey, loginId);
+    }
 }
