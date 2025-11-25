@@ -4,6 +4,7 @@ import com.example.zoutohanafansitedemo.entity.user.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
@@ -16,4 +17,12 @@ public interface UserMapper {
                 VALUES (#{loginId}, #{nickname}, #{password}, #{selfIntroduction}, #{address}, #{birthYear}, #{gender}, #{securityKey})
             """)
     void insertUser(User user);
+
+    @Update("""
+            UPDATE users
+                SET password = #{password},
+                    security_key = #{securityKey}
+                WHERE login_id = #{loginId}
+            """)
+    void updatePassword(String password, String securityKey, String loginId);
 }
