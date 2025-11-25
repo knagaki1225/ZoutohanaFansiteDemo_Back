@@ -61,7 +61,7 @@ public class ProjectService {
 
         for(int i = count; i < num; i++){
             Project project = projects.get(i);
-            projectLists.add(new ProjectList(project.getId(), project.getUrlKey(), project.getName(), project.getStartAt(), project.getEndAt(), project.getIntroduction()));
+            projectLists.add(new ProjectList(project.getId(), project.getUrlKey(), project.getName(), project.getProjectStartAt(), project.getProjectEndAt(), project.getIntroduction()));
         }
 
         return new ProjectPagination(paginationInfo, projectLists);

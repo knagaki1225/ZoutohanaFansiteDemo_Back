@@ -29,7 +29,7 @@ public interface ProjectMapper {
             SELECT *
             FROM Projects
             WHERE is_delete = FALSE
-              AND NOW() BETWEEN start_at AND end_at;
+              AND NOW() BETWEEN project_start_at AND project_end_at;
             """)
     List<Project> selectProgressProjects();
 

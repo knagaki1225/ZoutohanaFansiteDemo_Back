@@ -10,17 +10,17 @@ public class ProjectProgress {
     private String urlKey;
     private String name;
     private String logoUrl;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private LocalDateTime projectStartAt;
+    private LocalDateTime projectEndAt;
     private String introduction;
 
-    public ProjectProgress(long id, String urlKey, String name, String logoUrl, LocalDateTime startAt, LocalDateTime endAt, String introduction) {
+    public ProjectProgress(long id, String urlKey, String name, String logoUrl, LocalDateTime projectStartAt, LocalDateTime projectEndAt, String introduction) {
         this.id = id;
         this.urlKey = urlKey;
         this.name = name;
         this.logoUrl = logoUrl;
-        this.startAt = startAt;
-        this.endAt = endAt;
+        this.projectStartAt = projectStartAt;
+        this.projectEndAt = projectEndAt;
         this.introduction = introduction;
     }
 }

@@ -33,7 +33,7 @@ public class ProjectController {
         List<Project> projects = projectService.getFourEndProject();
         List<ProjectTopPageEnd> topProjects = new ArrayList<>();
         for (Project project : projects) {
-            topProjects.add(new ProjectTopPageEnd(project.getId(), project.getUrlKey(), project.getName(), project.getStartAt(), project.getEndAt()));
+            topProjects.add(new ProjectTopPageEnd(project.getId(), project.getUrlKey(), project.getName(), project.getProjectStartAt(), project.getProjectEndAt()));
         }
 
         return ResponseEntity.ok(topProjects);
@@ -44,7 +44,7 @@ public class ProjectController {
         List<Project> projects = projectService.getProgressProjects();
         List<ProjectProgress> topProjects = new ArrayList<>();
         for (Project project : projects) {
-            topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getLogoImgUrl(), project.getStartAt(), project.getEndAt(), project.getIntroduction()));
+            topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getLogoImgUrl(), project.getProjectStartAt(), project.getProjectEndAt(), project.getIntroduction()));
         }
 
         return ResponseEntity.ok(topProjects);

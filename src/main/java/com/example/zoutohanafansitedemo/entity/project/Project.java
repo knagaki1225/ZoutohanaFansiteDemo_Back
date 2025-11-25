@@ -19,8 +19,8 @@ public class Project {
     private boolean isVisibleReviewTitle;
     private boolean isVisibleUserInfo;
     private boolean isPublic;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private LocalDateTime projectStartAt;
+    private LocalDateTime projectEndAt;
     private LocalDateTime submissionStartAt;
     private LocalDateTime submissionEndAt;
     private LocalDateTime votingStartAt;
