@@ -1,10 +1,7 @@
 package com.example.zoutohanafansitedemo.controller;
 
 import com.example.zoutohanafansitedemo.auth.AuthenticationService;
-import com.example.zoutohanafansitedemo.entity.auth.LoginRequest;
-import com.example.zoutohanafansitedemo.entity.auth.LoginResponse;
-import com.example.zoutohanafansitedemo.entity.auth.UserRegisterRequest;
-import com.example.zoutohanafansitedemo.entity.auth.UserRegisterResponse;
+import com.example.zoutohanafansitedemo.entity.auth.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +24,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserRegisterResponse>  register(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest userRegisterRequest) {
         UserRegisterResponse userRegisterResponse = authenticationService.registerUser(userRegisterRequest);
+        return ResponseEntity.ok(userRegisterResponse);
+    }
+
+    @PostMapping("/password/reset")
+    public ResponseEntity<UserRegisterResponse> passwordReset(@RequestBody PasswordResetRequest passwordResetRequest) {
+        UserRegisterResponse userRegisterResponse = authenticationService.passwordReset(passwordResetRequest);
         return ResponseEntity.ok(userRegisterResponse);
     }
 }

@@ -1,12 +1,10 @@
 package com.example.zoutohanafansitedemo.auth;
 
-import com.example.zoutohanafansitedemo.entity.auth.LoginRequest;
-import com.example.zoutohanafansitedemo.entity.auth.LoginResponse;
-import com.example.zoutohanafansitedemo.entity.auth.UserRegisterRequest;
-import com.example.zoutohanafansitedemo.entity.auth.UserRegisterResponse;
+import com.example.zoutohanafansitedemo.entity.auth.*;
 import com.example.zoutohanafansitedemo.entity.enums.UserStatus;
 import com.example.zoutohanafansitedemo.entity.user.User;
 import com.example.zoutohanafansitedemo.exception.AccountDisabledException;
+import com.example.zoutohanafansitedemo.exception.InvalidPasswordResetException;
 import com.example.zoutohanafansitedemo.exception.LoginArgumentNotValidException;
 import com.example.zoutohanafansitedemo.exception.UserRegistrationException;
 import com.example.zoutohanafansitedemo.repository.UserRepository;
@@ -80,6 +78,10 @@ public class AuthenticationService {
             throw new UserRegistrationException("nickname was empty");
         }
 
+        if(userRegisterRequest.getIcon() == null){
+            throw new UserRegistrationException("icon was empty");
+        }
+
         if(userRegisterRequest.getAddress() == null || userRegisterRequest.getAddress().isEmpty()){
             throw new UserRegistrationException("address was empty");
         }
@@ -120,5 +122,28 @@ public class AuthenticationService {
         userRegisterResponse.setSecurityKey(securityKey);
 
         return userRegisterResponse;
+    }
+
+    public UserRegisterResponse passwordReset(PasswordResetRequest passwordResetRequest) {
+        User user = userRepository.selectUserByLoginId(passwordResetRequest.getLoginId());
+        if(user == null){
+            throw new InvalidPasswordResetException("loginId or securityKey was invalid");
+        }
+
+        if(!passwordEncoder.matches(passwordResetRequest.getSecurityKey(), user.getSecurityKey())){
+            throw new InvalidPasswordResetException("loginId or securityKey was invalid");
+        }
+
+        String hashedPassword = passwordEncoder.encode(passwordResetRequest.getPassword());
+
+        String newSecurityKey = GenerateSecurityKeyService.generateSecurityKey();
+        String hashedSecurityKey = passwordEncoder.encode(newSecurityKey);
+        userRepository.updatePassword(hashedPassword, hashedSecurityKey, user.getLoginId());
+
+        UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
+        userRegisterResponse.setLoginId(user.getLoginId());
+        userRegisterResponse.setSecurityKey(newSecurityKey);
+
+        return  userRegisterResponse;
     }
 }
