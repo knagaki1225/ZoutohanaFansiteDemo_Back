@@ -2,12 +2,13 @@ package com.example.zoutohanafansitedemo.controller;
 
 import com.example.zoutohanafansitedemo.entity.project.*;
 import com.example.zoutohanafansitedemo.service.ProjectService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class ProjectController {
     public ResponseEntity<List<Project>> getAll() {
         List<Project> projects = projectService.getAll();
         return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Project> findById(@PathVariable long id) {
+        Project project = projectService.findById(id);
+        return ResponseEntity.ok(project);
     }
 //    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
 
@@ -54,5 +61,15 @@ public class ProjectController {
     public ResponseEntity<ProjectPagination> getListPageProjectEnd(@RequestParam(defaultValue = "1") int page) {
         ProjectPagination pp = projectService.getProjectPagination(page);
         return ResponseEntity.ok(pp);
+    }
+
+    @PostMapping("/authenticated/new")
+    public ResponseEntity<Project> insert(@Valid @RequestBody Project project, UriComponentsBuilder uriComponentsBuilder) {
+        Project createdProject = projectService.insert(project);
+        URI location = uriComponentsBuilder.path("/api/projects/{id}")
+                .buildAndExpand(createdProject.getId()).toUri();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(location);
+        return ResponseEntity.created(location).body(createdProject);
     }
 }

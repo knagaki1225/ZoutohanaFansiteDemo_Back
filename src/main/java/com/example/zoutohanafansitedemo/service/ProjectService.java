@@ -1,5 +1,6 @@
 package com.example.zoutohanafansitedemo.service;
 
+import com.example.zoutohanafansitedemo.auth.CustomUserDetails;
 import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
 import com.example.zoutohanafansitedemo.entity.project.Project;
 import com.example.zoutohanafansitedemo.entity.project.ProjectList;
@@ -21,6 +22,10 @@ public class ProjectService {
 
     public List<Project> getAll() {
         return projectRepository.selectAll();
+    }
+
+    public Project findById(long id) {
+        return projectRepository.findById(id);
     }
 
     public List<Project> getFourEndProject(){
@@ -65,5 +70,10 @@ public class ProjectService {
         }
 
         return new ProjectPagination(paginationInfo, projectLists);
+    }
+
+    public Project insert(Project project) {
+        projectRepository.insert(project);
+        return project;
     }
 }
