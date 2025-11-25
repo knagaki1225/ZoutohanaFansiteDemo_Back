@@ -2,6 +2,8 @@ package com.example.zoutohanafansitedemo.entity.project;
 
 import com.example.zoutohanafansitedemo.entity.enums.ProjectStatus;
 import com.example.zoutohanafansitedemo.entity.enums.ThemeColor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,8 +11,13 @@ import java.time.LocalDateTime;
 @Data
 public class Project {
     private long id;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String urlKey;
+
     private String introduction;
     private String logoImgUrl;
     private ThemeColor themeColor;  // enums/ThemeColor
@@ -19,8 +26,8 @@ public class Project {
     private boolean isVisibleReviewTitle;
     private boolean isVisibleUserInfo;
     private boolean isPublic;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private LocalDateTime projectStartAt;
+    private LocalDateTime projectEndAt;
     private LocalDateTime submissionStartAt;
     private LocalDateTime submissionEndAt;
     private LocalDateTime votingStartAt;

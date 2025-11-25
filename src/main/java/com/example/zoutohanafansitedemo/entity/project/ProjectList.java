@@ -9,16 +9,16 @@ public class ProjectList {
     long id;
     private String urlKey;
     private String name;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private LocalDateTime projectStartAt;
+    private LocalDateTime projectEndAt;
     private String introduction;
 
-    public ProjectList(long id, String urlKey, String name, LocalDateTime startAt, LocalDateTime endAt, String introduction) {
+    public ProjectList(long id, String urlKey, String name, LocalDateTime projectStartAt, LocalDateTime projectEndAt, String introduction) {
         this.id = id;
         this.urlKey = urlKey;
         this.name = name;
-        this.startAt = startAt;
-        this.endAt = endAt;
+        this.projectStartAt = projectStartAt;
+        this.projectEndAt = projectEndAt;
         this.introduction = introduction;
     }
 }
