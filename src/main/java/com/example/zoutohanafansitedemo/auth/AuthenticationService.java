@@ -1,12 +1,14 @@
 package com.example.zoutohanafansitedemo.auth;
 
 import com.example.zoutohanafansitedemo.entity.auth.*;
+import com.example.zoutohanafansitedemo.entity.enums.UserRole;
 import com.example.zoutohanafansitedemo.entity.enums.UserStatus;
 import com.example.zoutohanafansitedemo.entity.user.User;
 import com.example.zoutohanafansitedemo.exception.AccountDisabledException;
 import com.example.zoutohanafansitedemo.exception.InvalidPasswordResetException;
 import com.example.zoutohanafansitedemo.exception.LoginArgumentNotValidException;
 import com.example.zoutohanafansitedemo.exception.UserRegistrationException;
+import com.example.zoutohanafansitedemo.repository.AdminUserRepository;
 import com.example.zoutohanafansitedemo.repository.UserRepository;
 import com.example.zoutohanafansitedemo.service.GenerateSecurityKeyService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class AuthenticationService {
@@ -22,12 +25,14 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final AdminUserRepository adminUserRepository;
 
-    public AuthenticationService(AuthenticationManager authenticationManager, JwtService jwtService, PasswordEncoder passwordEncoder, UserRepository userRepository, GenerateSecurityKeyService generateSecurityKeyService) {
+    public AuthenticationService(AuthenticationManager authenticationManager, JwtService jwtService, PasswordEncoder passwordEncoder, UserRepository userRepository, GenerateSecurityKeyService generateSecurityKeyService, AdminUserRepository adminUserRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.adminUserRepository = adminUserRepository;
     }
 
     // 認証してレスポンスを返す
@@ -48,13 +53,23 @@ public class AuthenticationService {
                 )
         );
 
-        User user = userRepository.selectUserByLoginId(loginRequest.getLoginId());
+        User user = adminUserRepository.selectAdminUserByLoginId(loginRequest.getLoginId());
+        if(user == null){
+            user = userRepository.selectUserByLoginId(loginRequest.getLoginId());
+            user.setRole(UserRole.ROLE_USER);
+        }else{
+            user.setRole(UserRole.ROLE_ADMIN);
+            user.setStatus(UserStatus.ACTIVE);
+        }
+
         if(user.getStatus() != UserStatus.ACTIVE){
             throw new AccountDisabledException("This account has been suspended");
         }
 
+        List<String> roles = List.of(user.getRole().name());
+
         // JWTトークンの生成
-        String token = jwtService.generateToken(loginRequest.getLoginId());
+        String token = jwtService.generateToken(loginRequest.getLoginId(), roles);
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(token);
@@ -70,7 +85,7 @@ public class AuthenticationService {
             throw new UserRegistrationException("password was empty");
         }
 
-        if(userRepository.selectUserByLoginId(userRegisterRequest.getLoginId())!=null){
+        if(userRepository.selectUserByLoginId(userRegisterRequest.getLoginId())!=null || adminUserRepository.selectAdminUserByLoginId(userRegisterRequest.getLoginId()) != null){
             throw new UserRegistrationException("login id was exist");
         }
 
