@@ -1,6 +1,7 @@
 package com.example.zoutohanafansitedemo.auth;
 
 import com.example.zoutohanafansitedemo.entity.enums.UserGender;
+import com.example.zoutohanafansitedemo.entity.enums.UserRole;
 import com.example.zoutohanafansitedemo.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,14 +11,16 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
     private final User user;
+    private final UserRole role;
 
-    public CustomUserDetails(User user) {
+    public CustomUserDetails(User user, UserRole role) {
         this.user = user;
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.role.getAuthorities();
     }
 
     @Override

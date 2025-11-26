@@ -396,7 +396,7 @@ VALUES
         '2026-05-26 00:00:00',
         '2026-05-31 23:59:59'
     );
-INSERT INTO admin_users (login_id, nickname, password) VALUES ('morijyobi', '管理人アカウント', 'morijyobi');
+INSERT INTO admin_users (login_id, nickname, password) VALUES ('admin', '管理人アカウント', '$2a$08$me8Ze6mudpUEUvFBWVAAyO3.jqwyJnsutqcX9vDL.5ezJHXp4y3UG');
 
 INSERT INTO genres (name) VALUES ('ミステリー');
 
