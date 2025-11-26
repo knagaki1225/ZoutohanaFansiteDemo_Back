@@ -18,6 +18,10 @@ public class ProjectRepository {
         return projectMapper.selectAll();
     }
 
+    public Project findById(long id) {
+        return projectMapper.findById(id);
+    }
+
     public List<Project> selectFourEndProjects(){
         return projectMapper.selectFourEndProjects();
     }
@@ -28,5 +32,9 @@ public class ProjectRepository {
 
     public List<Project> selectEndProjects(){
         return projectMapper.selectEndProjects();
+    }
+
+    public int insert(Project project) {
+        return projectMapper.insert(project);
     }
 }

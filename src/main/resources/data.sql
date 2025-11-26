@@ -34,7 +34,7 @@ VALUES
 INSERT INTO genres (name) VALUES ('ミステリー');
 
 INSERT INTO Projects
-(name, url_key, introduction, logo_img_url, theme_color, status, is_visible_book_title, is_visible_review_title, is_visible_user_info, is_public, start_at, end_at, submission_start_at, submission_end_at, voting_start_at, voting_end_at)
+(name, url_key, introduction, logo_img_url, theme_color, status, is_visible_book_title, is_visible_review_title, is_visible_user_info, is_public, project_start_at, project_end_at, submission_start_at, submission_end_at, voting_start_at, voting_end_at)
 VALUES
     (
         '2024年10月読書週間特別企画',
