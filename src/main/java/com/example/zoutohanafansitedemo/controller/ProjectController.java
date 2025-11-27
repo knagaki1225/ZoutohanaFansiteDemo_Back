@@ -72,4 +72,13 @@ public class ProjectController {
         headers.setLocation(location);
         return ResponseEntity.created(location).body(createdProject);
     }
+
+    // 書評投稿の禁止事項情報
+    @GetMapping("/prohibitions/{id}")
+    public ResponseEntity<ProjectProhibitionsInfo> getProhibitions(@PathVariable long id) {
+        Project project =  projectService.findById(id);
+        ProjectProhibitionsInfo  projectProhibitionsInfo = new ProjectProhibitionsInfo();
+        projectProhibitionsInfo.setVisibleBookTitle(project.isVisibleBookTitle());
+        return ResponseEntity.ok(projectProhibitionsInfo);
+    }
 }
