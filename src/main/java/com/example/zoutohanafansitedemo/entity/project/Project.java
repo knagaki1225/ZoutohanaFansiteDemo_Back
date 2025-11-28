@@ -19,7 +19,7 @@ public class Project {
     private String urlKey;
 
     private String introduction;
-    private String logoImgUrl;
+    private String mainImgUrl;
     private ThemeColor themeColor;  // enums/ThemeColor
     private ProjectStatus status;  // enums/ProjectStatus
     private boolean isVisibleBookTitle;

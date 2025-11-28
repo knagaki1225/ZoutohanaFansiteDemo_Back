@@ -30,7 +30,7 @@ public class ReviewRepository {
         return reviewMapper.selectRandomByProjectId(projectId);
     }
 
-    public List<ReviewMypage> selectByUserId(long userId) {
+    public List<Review> selectByUserId(long userId) {
         return reviewMapper.selectByUserId(userId);
     }
 
