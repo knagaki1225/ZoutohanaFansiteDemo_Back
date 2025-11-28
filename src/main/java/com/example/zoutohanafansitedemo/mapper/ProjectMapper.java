@@ -28,9 +28,9 @@ public interface ProjectMapper {
             SELECT *
             FROM Projects
             WHERE is_delete = FALSE
-                AND end_at < NOW()
+                AND project_end_at < NOW()
                 AND is_public = TRUE
-            ORDER BY end_at DESC
+            ORDER BY project_end_at DESC
             LIMIT 4
             """)
     List<Project> selectFourEndProjects();
@@ -47,9 +47,9 @@ public interface ProjectMapper {
             SELECT *
             FROM Projects
             WHERE is_delete = FALSE
-                AND end_at < NOW()
+                AND project_end_at < NOW()
                 AND is_public = TRUE
-            ORDER BY end_at DESC
+            ORDER BY project_end_at DESC
             """)
     List<Project> selectEndProjects();
 
