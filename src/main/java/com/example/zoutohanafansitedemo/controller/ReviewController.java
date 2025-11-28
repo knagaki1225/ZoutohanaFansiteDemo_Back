@@ -49,8 +49,8 @@ public class ReviewController {
     }
 
     @GetMapping("/authenticated/byUser/{userId}")
-    public ResponseEntity<List<ReviewMypage>> selectByUserId(@PathVariable long userId) {
-        List<ReviewMypage> reviews = reviewService.selectByUserId(userId);
+    public ResponseEntity<List<Review>> selectByUserId(@PathVariable long userId) {
+        List<Review> reviews = reviewService.selectByUserId(userId);
         return ResponseEntity.ok(reviews);
     }
 

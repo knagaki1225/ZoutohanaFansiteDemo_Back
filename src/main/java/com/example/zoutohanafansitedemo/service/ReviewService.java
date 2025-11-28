@@ -1,22 +1,25 @@
 package com.example.zoutohanafansitedemo.service;
 
 import com.example.zoutohanafansitedemo.auth.CustomUserDetails;
+import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
+import com.example.zoutohanafansitedemo.entity.info.PaginationView;
 import com.example.zoutohanafansitedemo.entity.review.*;
 import com.example.zoutohanafansitedemo.mapper.ReviewMapper;
 import com.example.zoutohanafansitedemo.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ReviewService {
     private final ReviewRepository reviewRepository;
-    private final ReviewMapper reviewMapper;
+    private final PaginationService paginationService;
 
-    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper, PaginationService paginationService) {
         this.reviewRepository = reviewRepository;
-        this.reviewMapper = reviewMapper;
+        this.paginationService = paginationService;
     }
 
     private int toAgeGroup(int birthYear){
@@ -41,7 +44,7 @@ public class ReviewService {
         return reviewRepository.selectRandomByProjectId(projectId);
     }
 
-    public List<ReviewMypage> selectByUserId(long userId) {
+    public List<Review> selectByUserId(long userId) {
         return reviewRepository.selectByUserId(userId);
     }
 
@@ -55,5 +58,23 @@ public class ReviewService {
 
         reviewRepository.insert(review);
         return review;
+    }
+
+    public ReviewMyPagePagination getReviewMyPage(int page, long userId){
+        List<Review> reviews = reviewRepository.selectByUserId(userId);
+        List<ReviewMyPage> reviewList = new ArrayList<>();
+
+        PaginationView paginationView = paginationService.getPaginationView(page, reviews.size(), 3);
+
+        PaginationInfo paginationInfo = paginationView.getPaginationInfo();
+        for(int i = paginationView.getStartNum(); i < paginationView.getEndNum(); i++){
+            Review review = reviews.get(i);
+            ReviewMyPage reviewMyPage = new ReviewMyPage(
+                    review.getId(), review.getBookTitle(), review.getBookPublisher(), review.getBookAuthor(), review.getReviewTitle(), review.getReviewContent(), review.getVoteCount()
+            );
+            reviewList.add(reviewMyPage);
+        }
+
+        return new ReviewMyPagePagination(paginationInfo, reviewList);
     }
 }

@@ -30,7 +30,7 @@ CREATE TABLE Projects (
     name VARCHAR(255) NOT NULL,
     url_key VARCHAR(255) NOT NULL UNIQUE,
     introduction TEXT,
-    logo_img_url VARCHAR(500),
+    main_img_url VARCHAR(500),
     theme_color VARCHAR(255),   -- enums/ThemeColor
     status VARCHAR(255),    -- enums/ProjectStatus
     is_visible_book_title BOOLEAN DEFAULT FALSE,

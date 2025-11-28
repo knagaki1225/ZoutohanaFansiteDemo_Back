@@ -91,7 +91,7 @@ public interface ReviewMapper {
         WHERE is_delete = FALSE
             AND user_id = #{userId};
     """)
-    List<ReviewMypage> selectByUserId(long userId);
+    List<Review> selectByUserId(long userId);
 
     @Insert("""
         INSERT INTO Reviews (

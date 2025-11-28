@@ -51,7 +51,7 @@ public class ProjectController {
         List<Project> projects = projectService.getProgressProjects();
         List<ProjectProgress> topProjects = new ArrayList<>();
         for (Project project : projects) {
-            topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getLogoImgUrl(), project.getProjectStartAt(), project.getProjectEndAt(), project.getIntroduction()));
+            topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getMainImgUrl(), project.getProjectStartAt(), project.getProjectEndAt(), project.getIntroduction()));
         }
 
         return ResponseEntity.ok(topProjects);
