@@ -6,6 +6,7 @@ import com.example.zoutohanafansitedemo.service.ReviewService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -48,13 +49,14 @@ public class ReviewController {
         return ResponseEntity.ok(reviews);
     }
 
-    @GetMapping("/authenticated/byUser/{userId}")
-    public ResponseEntity<List<Review>> selectByUserId(@PathVariable long userId) {
-        List<Review> reviews = reviewService.selectByUserId(userId);
-        return ResponseEntity.ok(reviews);
-    }
+//    @GetMapping("/authenticated/byUser/{userId}")
+//    public ResponseEntity<List<Review>> selectByUserId(@PathVariable long userId) {
+//        List<Review> reviews = reviewService.selectByUserId(userId);
+//        return ResponseEntity.ok(reviews);
+//    }
 
-    @PostMapping("/authenticated/new")
+    @PostMapping("/new")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Review> insert(@Valid @RequestBody Review review,
                                          @AuthenticationPrincipal CustomUserDetails userDetails,
                                          UriComponentsBuilder uriComponentsBuilder) {
