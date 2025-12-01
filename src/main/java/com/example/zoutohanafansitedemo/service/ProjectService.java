@@ -1,15 +1,14 @@
 package com.example.zoutohanafansitedemo.service;
 
+import com.example.zoutohanafansitedemo.entity.enums.ProjectStatus;
 import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
 import com.example.zoutohanafansitedemo.entity.info.PaginationView;
-import com.example.zoutohanafansitedemo.entity.project.Project;
-import com.example.zoutohanafansitedemo.entity.project.ProjectList;
-import com.example.zoutohanafansitedemo.entity.project.ProjectMyPage;
-import com.example.zoutohanafansitedemo.entity.project.ProjectPagination;
+import com.example.zoutohanafansitedemo.entity.project.*;
 import com.example.zoutohanafansitedemo.exception.InvalidPaginationException;
 import com.example.zoutohanafansitedemo.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -19,10 +18,12 @@ import java.util.List;
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final PaginationService paginationService;
+    private final ImageService imageService;
 
-    public ProjectService(ProjectRepository projectRepository, PaginationService paginationService) {
+    public ProjectService(ProjectRepository projectRepository, PaginationService paginationService, ImageService imageService) {
         this.projectRepository = projectRepository;
         this.paginationService = paginationService;
+        this.imageService = imageService;
     }
 
     public List<Project> getAll() {
@@ -59,9 +60,35 @@ public class ProjectService {
         return new ProjectPagination(paginationInfo, projectLists);
     }
 
-    public Project insert(Project project) {
-        projectRepository.insert(project);
-        return project;
+    public Project insert(ProjectRegisterRequest projectRegisterRequest) {
+        String imageName;
+        try {
+            imageName = imageService.saveImage(projectRegisterRequest.getMainImg());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Project newProject = new Project();
+        newProject.setName(projectRegisterRequest.getName());
+        newProject.setUrlKey(projectRegisterRequest.getUrlKey());
+        newProject.setIntroduction(projectRegisterRequest.getIntroduction());
+        newProject.setMainImgUrl(imageName);
+        newProject.setThemeColor(projectRegisterRequest.getThemeColor());
+        newProject.setStatus(ProjectStatus.BEFORE_SUBMISSION);
+        newProject.setVisibleBookTitle(projectRegisterRequest.isVisibleBookTitle());
+        newProject.setVisibleReviewTitle(projectRegisterRequest.isVisibleReviewTitle());
+        newProject.setVisibleUserInfo(projectRegisterRequest.isVisibleUserInfo());
+        newProject.setPublic(projectRegisterRequest.isPublic());
+        newProject.setProjectStartAt(projectRegisterRequest.getProjectStartAt());
+        newProject.setProjectEndAt(projectRegisterRequest.getProjectEndAt());
+        newProject.setSubmissionStartAt(projectRegisterRequest.getSubmissionStartAt());
+        newProject.setSubmissionEndAt(projectRegisterRequest.getSubmissionEndAt());
+        newProject.setVotingStartAt(projectRegisterRequest.getVotingStartAt());
+        newProject.setVotingEndAt(projectRegisterRequest.getVotingEndAt());
+
+
+        projectRepository.insert(newProject);
+        return newProject;
     }
 
     public List<ProjectMyPage> getProjectMyPage(){

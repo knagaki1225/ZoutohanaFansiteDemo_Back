@@ -65,9 +65,9 @@ public class ProjectController {
     }
 
     @PostMapping("/new")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Project> insert(@Valid @RequestBody Project project, UriComponentsBuilder uriComponentsBuilder) {
-        Project createdProject = projectService.insert(project);
+  　@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Project> insert(@ModelAttribute ProjectRegisterRequest projectRegisterRequest, UriComponentsBuilder uriComponentsBuilder) {
+        Project createdProject = projectService.insert(projectRegisterRequest);
         URI location = uriComponentsBuilder.path("/api/projects/{id}")
                 .buildAndExpand(createdProject.getId()).toUri();
         HttpHeaders headers = new HttpHeaders();
