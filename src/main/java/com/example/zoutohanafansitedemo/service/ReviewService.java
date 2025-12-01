@@ -64,6 +64,10 @@ public class ReviewService {
         List<Review> reviews = reviewRepository.selectByUserId(userId);
         List<ReviewMyPage> reviewList = new ArrayList<>();
 
+        if(reviews.isEmpty()){
+            return new ReviewMyPagePagination(new PaginationInfo(0, 0), reviewList);
+        }
+
         PaginationView paginationView = paginationService.getPaginationView(page, reviews.size(), 3);
 
         PaginationInfo paginationInfo = paginationView.getPaginationInfo();

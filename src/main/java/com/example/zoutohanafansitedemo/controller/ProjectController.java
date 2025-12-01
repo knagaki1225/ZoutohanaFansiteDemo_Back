@@ -5,6 +5,7 @@ import com.example.zoutohanafansitedemo.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -63,7 +64,8 @@ public class ProjectController {
         return ResponseEntity.ok(pp);
     }
 
-    @PostMapping("/authenticated/new")
+    @PostMapping("/new")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Project> insert(@Valid @RequestBody Project project, UriComponentsBuilder uriComponentsBuilder) {
         Project createdProject = projectService.insert(project);
         URI location = uriComponentsBuilder.path("/api/projects/{id}")
