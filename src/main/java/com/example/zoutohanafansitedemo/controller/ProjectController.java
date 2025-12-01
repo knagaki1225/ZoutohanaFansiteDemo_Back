@@ -63,9 +63,9 @@ public class ProjectController {
         return ResponseEntity.ok(pp);
     }
 
-    @PostMapping("/authenticated/new")
-    public ResponseEntity<Project> insert(@Valid @RequestBody Project project, UriComponentsBuilder uriComponentsBuilder) {
-        Project createdProject = projectService.insert(project);
+    @PostMapping("/new")
+    public ResponseEntity<Project> insert(@ModelAttribute ProjectRegisterRequest projectRegisterRequest, UriComponentsBuilder uriComponentsBuilder) {
+        Project createdProject = projectService.insert(projectRegisterRequest);
         URI location = uriComponentsBuilder.path("/api/projects/{id}")
                 .buildAndExpand(createdProject.getId()).toUri();
         HttpHeaders headers = new HttpHeaders();
