@@ -39,5 +39,5 @@ public class Review {
     private int voteCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Boolean isDelete;
+    private Boolean deleted;
 }

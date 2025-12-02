@@ -64,8 +64,8 @@ public class ProjectController {
         return ResponseEntity.ok(pp);
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/new")
-  　@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Project> insert(@ModelAttribute ProjectRegisterRequest projectRegisterRequest, UriComponentsBuilder uriComponentsBuilder) {
         Project createdProject = projectService.insert(projectRegisterRequest);
         URI location = uriComponentsBuilder.path("/api/projects/{id}")
@@ -80,7 +80,7 @@ public class ProjectController {
     public ResponseEntity<ProjectProhibitionsInfo> getProhibitions(@PathVariable long id) {
         Project project =  projectService.findById(id);
         ProjectProhibitionsInfo  projectProhibitionsInfo = new ProjectProhibitionsInfo();
-        projectProhibitionsInfo.setVisibleBookTitle(project.isVisibleBookTitle());
+        projectProhibitionsInfo.setEnableVisibleBookTitle(project.isEnableVisibleBookTitle());
         return ResponseEntity.ok(projectProhibitionsInfo);
     }
 }

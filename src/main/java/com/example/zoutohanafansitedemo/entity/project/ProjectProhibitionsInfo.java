@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ProjectProhibitionsInfo {
-    private boolean isVisibleBookTitle;
+    private boolean enableVisibleBookTitle;
 }

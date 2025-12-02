@@ -15,10 +15,10 @@ public class ProjectRegisterRequest {
     private String introduction;
     private MultipartFile mainImg;
     private ThemeColor themeColor;  // enums/ThemeColor
-    private boolean isVisibleBookTitle;
-    private boolean isVisibleReviewTitle;
-    private boolean isVisibleUserInfo;
-    private boolean isPublic;
+    private boolean enableVisibleBookTitle;
+    private boolean enableVisibleReviewTitle;
+    private boolean enableVisibleUserInfo;
+    private boolean published;
     private LocalDateTime projectStartAt;
     private LocalDateTime projectEndAt;
     private LocalDateTime submissionStartAt;
