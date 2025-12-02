@@ -43,7 +43,7 @@ public interface ReviewMapper {
             vote_count,
             created_at
         FROM Reviews
-        WHERE is_delete = FALSE
+        WHERE deleted = FALSE
             AND project_id = #{projectId};
     """)
     List<ReviewView> selectByProjectId(long projectId);
@@ -67,7 +67,7 @@ public interface ReviewMapper {
             vote_count,
             created_at
         FROM Reviews
-        WHERE is_delete = FALSE
+        WHERE deleted = FALSE
             AND project_id = #{projectId}
         ORDER BY RAND()
         LIMIT 18;
@@ -88,7 +88,7 @@ public interface ReviewMapper {
             vote_count,
             created_at
         FROM Reviews
-        WHERE is_delete = FALSE
+        WHERE deleted = FALSE
             AND user_id = #{userId};
     """)
     List<Review> selectByUserId(long userId);

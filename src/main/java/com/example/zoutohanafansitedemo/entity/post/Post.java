@@ -16,4 +16,5 @@ public class Post {
     private String status;  // enums/PostStatus
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private boolean deleted;
 }

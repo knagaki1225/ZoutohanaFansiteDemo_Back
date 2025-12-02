@@ -27,9 +27,9 @@ public interface ProjectMapper {
     @Select("""
             SELECT *
             FROM Projects
-            WHERE is_delete = FALSE
+            WHERE deleted = FALSE
                 AND project_end_at < NOW()
-                AND is_public = TRUE
+                AND published = TRUE
             ORDER BY project_end_at DESC
             LIMIT 4
             """)
@@ -38,7 +38,7 @@ public interface ProjectMapper {
     @Select("""
             SELECT *
             FROM Projects
-            WHERE is_delete = FALSE
+            WHERE deleted = FALSE
                 AND NOW() BETWEEN project_start_at AND project_end_at;
             """)
     List<Project> selectProgressProjects();
@@ -46,9 +46,9 @@ public interface ProjectMapper {
     @Select("""
             SELECT *
             FROM Projects
-            WHERE is_delete = FALSE
+            WHERE deleted = FALSE
                 AND project_end_at < NOW()
-                AND is_public = TRUE
+                AND published = TRUE
             ORDER BY project_end_at DESC
             """)
     List<Project> selectEndProjects();
@@ -61,10 +61,10 @@ public interface ProjectMapper {
                 main_img_url,
                 theme_color,
                 status,
-                is_visible_book_title,
-                is_visible_review_title,
-                is_visible_user_info,
-                is_public,
+                enablevisible_book_title,
+                enablevisible_review_title,
+                enablevisible_user_info,
+                published,
                 project_start_at,
                 project_end_at,
                 submission_start_at,

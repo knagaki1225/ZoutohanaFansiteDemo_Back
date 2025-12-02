@@ -30,7 +30,7 @@ public interface PostMapper {
             title,
             posted_at
         FROM posts
-        WHERE is_delete = false
+        WHERE deleted = false
             AND status = 'PUBLIC'
         ORDER BY posted_at DESC
         LIMIT 0, 4
@@ -44,7 +44,7 @@ public interface PostMapper {
             title,
             posted_at
         FROM posts
-        WHERE is_delete = false
+        WHERE deleted = false
             AND status = 'PUBLIC'
             AND category = #{category}
         ORDER BY posted_at DESC
@@ -59,7 +59,7 @@ public interface PostMapper {
             content,
             posted_at
         FROM posts
-        WHERE is_delete = false
+        WHERE deleted = false
             AND status = 'PUBLIC'
             AND category = #{category}
         ORDER BY posted_at DESC
@@ -74,7 +74,7 @@ public interface PostMapper {
             content,
             posted_at
         FROM posts
-        WHERE is_delete = false
+        WHERE deleted = false
             AND status = 'PUBLIC'
             AND id = #{id}
     """)

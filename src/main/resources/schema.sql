@@ -13,7 +13,7 @@ CREATE TABLE Users (
     status VARCHAR(255) DEFAULT 'ACTIVE',    -- enums/UserStatus
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE
+    deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Admin_users テーブル
@@ -33,10 +33,10 @@ CREATE TABLE Projects (
     main_img_url VARCHAR(500),
     theme_color VARCHAR(255),   -- enums/ThemeColor
     status VARCHAR(255),    -- enums/ProjectStatus
-    is_visible_book_title BOOLEAN DEFAULT FALSE,
-    is_visible_review_title BOOLEAN DEFAULT FALSE,
-    is_visible_user_info BOOLEAN DEFAULT FALSE,
-    is_public BOOLEAN DEFAULT FALSE,
+    enable_visible_book_title BOOLEAN DEFAULT FALSE,
+    enable_visible_review_title BOOLEAN DEFAULT FALSE,
+    enable_visible_user_info BOOLEAN DEFAULT FALSE,
+    published BOOLEAN DEFAULT FALSE,
     project_start_at TIMESTAMP,
     project_end_at TIMESTAMP,
     submission_start_at TIMESTAMP,
@@ -45,7 +45,7 @@ CREATE TABLE Projects (
     voting_end_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE
+    deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Genres テーブル
@@ -54,7 +54,7 @@ CREATE TABLE Genres (
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE
+    deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Reviews テーブル
@@ -77,7 +77,7 @@ CREATE TABLE Reviews (
     vote_count INTEGER DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (project_id) REFERENCES Projects(id),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
@@ -97,7 +97,7 @@ CREATE TABLE Nominated_reviews (
     review_content TEXT NOT NULL,
     review_content_edited TEXT,
     review_vote_count INTEGER,
-    review_is_award BOOLEAN DEFAULT FALSE,
+    review_awarded BOOLEAN DEFAULT FALSE,
     book_isbn BIGINT,
     book_title VARCHAR(500),
     book_publisher VARCHAR(255),
@@ -105,7 +105,7 @@ CREATE TABLE Nominated_reviews (
     admin_comments TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (project_id) REFERENCES Projects(id),
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (review_id) REFERENCES Reviews(id)
@@ -118,7 +118,7 @@ CREATE TABLE PDF_urls (
     url VARCHAR(500) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (project_id) REFERENCES Projects(id)
 );
 
@@ -130,10 +130,10 @@ CREATE TABLE Notifications (
     review_id INTEGER,
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
-    is_read BOOLEAN DEFAULT FALSE,
+    seen BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (admin_id) REFERENCES Admin_users(id),
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (review_id) REFERENCES Reviews(id)
@@ -147,7 +147,7 @@ CREATE TABLE Notification_templates (
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE
+    deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Posts テーブル
@@ -161,7 +161,7 @@ CREATE TABLE Posts (
     status VARCHAR(255) NOT NULL,   -- enums/PostStatus
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (admin_id) REFERENCES Admin_users(id)
 );
 
@@ -171,7 +171,7 @@ CREATE TABLE Review_genres (
     genre_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_delete BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (review_id, genre_id),
     FOREIGN KEY (review_id) REFERENCES Reviews(id),
     FOREIGN KEY (genre_id) REFERENCES Genres(id)

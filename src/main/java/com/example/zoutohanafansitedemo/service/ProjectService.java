@@ -75,10 +75,10 @@ public class ProjectService {
         newProject.setMainImgUrl(imageName);
         newProject.setThemeColor(projectRegisterRequest.getThemeColor());
         newProject.setStatus(ProjectStatus.BEFORE_SUBMISSION);
-        newProject.setVisibleBookTitle(projectRegisterRequest.isVisibleBookTitle());
-        newProject.setVisibleReviewTitle(projectRegisterRequest.isVisibleReviewTitle());
-        newProject.setVisibleUserInfo(projectRegisterRequest.isVisibleUserInfo());
-        newProject.setPublic(projectRegisterRequest.isPublic());
+        newProject.setEnableVisibleBookTitle(projectRegisterRequest.isEnableVisibleBookTitle());
+        newProject.setEnableVisibleReviewTitle(projectRegisterRequest.isEnableVisibleReviewTitle());
+        newProject.setEnableVisibleUserInfo(projectRegisterRequest.isEnableVisibleUserInfo());
+        newProject.setPublished(projectRegisterRequest.isPublished());
         newProject.setProjectStartAt(projectRegisterRequest.getProjectStartAt());
         newProject.setProjectEndAt(projectRegisterRequest.getProjectEndAt());
         newProject.setSubmissionStartAt(projectRegisterRequest.getSubmissionStartAt());

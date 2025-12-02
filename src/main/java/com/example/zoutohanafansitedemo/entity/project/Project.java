@@ -22,10 +22,10 @@ public class Project {
     private String mainImgUrl;
     private ThemeColor themeColor;  // enums/ThemeColor
     private ProjectStatus status;  // enums/ProjectStatus
-    private boolean isVisibleBookTitle;
-    private boolean isVisibleReviewTitle;
-    private boolean isVisibleUserInfo;
-    private boolean isPublic;
+    private boolean enableVisibleBookTitle;
+    private boolean enableVisibleReviewTitle;
+    private boolean enableVisibleUserInfo;
+    private boolean published;
     private LocalDateTime projectStartAt;
     private LocalDateTime projectEndAt;
     private LocalDateTime submissionStartAt;
