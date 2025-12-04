@@ -64,9 +64,12 @@ public class ProjectController {
         return ResponseEntity.ok(pp);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/new")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Project> insert(@ModelAttribute ProjectRegisterRequest projectRegisterRequest, UriComponentsBuilder uriComponentsBuilder) {
+        System.out.println("name=" + projectRegisterRequest.getName());
+        System.out.println("urlKey=" + projectRegisterRequest.getUrlKey());
+
         Project createdProject = projectService.insert(projectRegisterRequest);
         URI location = uriComponentsBuilder.path("/api/projects/{id}")
                 .buildAndExpand(createdProject.getId()).toUri();
