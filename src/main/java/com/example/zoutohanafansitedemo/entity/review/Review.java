@@ -13,6 +13,8 @@ public class Review {
     @NotNull
     private Long projectId;
 
+    private String projectName;
+
     @NotNull
     private Long userId;
 

@@ -74,7 +74,7 @@ public class ReviewService {
         for(int i = paginationView.getStartNum(); i < paginationView.getEndNum(); i++){
             Review review = reviews.get(i);
             ReviewMyPage reviewMyPage = new ReviewMyPage(
-                    review.getId(), review.getBookTitle(), review.getBookPublisher(), review.getBookAuthor(), review.getReviewTitle(), review.getReviewContent(), review.getVoteCount(), review.getProjectId()
+                    review.getId(), review.getBookTitle(), review.getBookPublisher(), review.getBookAuthor(), review.getReviewTitle(), review.getReviewContent(), review.getVoteCount(), review.getProjectId(),review.getProjectName()
             );
             reviewList.add(reviewMyPage);
         }

@@ -76,8 +76,9 @@ public interface ReviewMapper {
 
     @Select("""
         SELECT
-            id,
+            Reviews.id,
             project_id,
+            Projects.name AS project_name,
             user_id,
             book_isbn,
             book_title,
@@ -86,9 +87,11 @@ public interface ReviewMapper {
             review_title,
             review_content,
             vote_count,
-            created_at
+            Reviews.created_at
         FROM Reviews
-        WHERE deleted = FALSE
+        LEFT OUTER JOIN Projects
+        ON Reviews.project_id = Projects.id
+        WHERE Reviews.deleted = FALSE
             AND user_id = #{userId};
     """)
     List<Review> selectByUserId(long userId);

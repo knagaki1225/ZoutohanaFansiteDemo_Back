@@ -2,8 +2,6 @@ package com.example.zoutohanafansitedemo.entity.review;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class ReviewMyPage {
     private long reviewId;
@@ -13,9 +11,9 @@ public class ReviewMyPage {
     private String reviewTitle;
     private String reviewContent;
     private Integer voteCount;
-    private Long projectId; // あとでprojectNameにする
+    private String projectName;
 
-    public ReviewMyPage(long reviewId, String bookTitle, String bookPublisher, String bookAuthor, String reviewTitle, String reviewContent, Integer voteCount, Long projectId) {
+    public ReviewMyPage(long reviewId, String bookTitle, String bookPublisher, String bookAuthor, String reviewTitle, String reviewContent, Integer voteCount, Long projectId, String projectName) {
         this.reviewId = reviewId;
         this.bookTitle = bookTitle;
         this.bookPublisher = bookPublisher;
@@ -23,6 +21,6 @@ public class ReviewMyPage {
         this.reviewTitle = reviewTitle;
         this.reviewContent = reviewContent;
         this.voteCount = voteCount;
-        this.projectId = projectId;
+        this.projectName = projectName;
     }
 }
