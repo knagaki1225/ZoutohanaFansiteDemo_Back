@@ -48,7 +48,15 @@ public class ReviewService {
         return reviewRepository.selectByUserId(userId);
     }
 
-    public Review insert(Review review, CustomUserDetails userDetails) {
+    public Review insert(ReviewRegisterRequest insertReview, CustomUserDetails userDetails) {
+        Review review = new Review();
+        review.setProjectId(insertReview.getProjectId());
+        review.setBookIsbn(insertReview.getBookIsbn());
+        review.setBookTitle(insertReview.getBookTitle());
+        review.setBookPublisher(insertReview.getBookPublisher());
+        review.setBookAuthor(insertReview.getBookAuthor());
+        review.setReviewTitle(insertReview.getReviewTitle());
+        review.setReviewContent(insertReview.getReviewContent());
         review.setUserId(userDetails.getId());
         review.setUserNickname(userDetails.getNickname());
         review.setUserAddress(userDetails.getAddress());

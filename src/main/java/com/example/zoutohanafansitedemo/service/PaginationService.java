@@ -25,15 +25,12 @@ public class PaginationService {
             pageSize++;
         }
 
-        while(page > pageSize){
-            page--;
+        if(page > pageSize){
+            page = pageSize;
         }
 
         int startNum = (page - 1) * loopNum;
-        int endNum = listSize;
-        if(startNum + loopNum - 1 <= listSize){
-            endNum = startNum + loopNum;
-        }
+        int endNum = Math.min(startNum + loopNum, listSize);
 
         return new PaginationView(new PaginationInfo(page, pageSize), startNum, endNum);
     }

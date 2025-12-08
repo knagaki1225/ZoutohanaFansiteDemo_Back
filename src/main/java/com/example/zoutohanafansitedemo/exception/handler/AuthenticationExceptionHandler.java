@@ -1,10 +1,7 @@
 package com.example.zoutohanafansitedemo.exception.handler;
 
 import com.example.zoutohanafansitedemo.entity.auth.PasswordResetRequest;
-import com.example.zoutohanafansitedemo.exception.AccountDisabledException;
-import com.example.zoutohanafansitedemo.exception.InvalidPasswordResetException;
-import com.example.zoutohanafansitedemo.exception.LoginArgumentNotValidException;
-import com.example.zoutohanafansitedemo.exception.UserRegistrationException;
+import com.example.zoutohanafansitedemo.exception.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.http.HttpStatus;
@@ -67,6 +64,11 @@ public class AuthenticationExceptionHandler {
 
     @ExceptionHandler(InvalidPasswordResetException.class)
     public ResponseEntity<String> handleBadPasswordResetRequest(InvalidPasswordResetException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(RoleEndpointMismatchException.class)
+    public ResponseEntity<String> handleRoleEndpointMismatch(RoleEndpointMismatchException ex){
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 

@@ -92,4 +92,11 @@ public interface ProjectMapper {
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id,createdAt,updatedAt", keyColumn = "id,created_at,updated_at")
     int insert(Project project);
+
+    @Select("""
+            SELECT * 
+            FROM projects
+            WHERE url_key = #{urlKey}
+            """)
+    Project findByUrlKey(String urlKey);
 }

@@ -3,10 +3,8 @@ package com.example.zoutohanafansitedemo.controller;
 import com.example.zoutohanafansitedemo.auth.AuthenticationService;
 import com.example.zoutohanafansitedemo.entity.auth.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,6 +21,12 @@ public class AuthController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    @PostMapping("/admin/login")
+    public ResponseEntity<?> adminLogin(@RequestBody LoginRequest loginRequest){
+        LoginResponse loginResponse = authenticationService.adminAuthentication(loginRequest);
+        return ResponseEntity.ok(loginResponse);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest userRegisterRequest) {
         UserRegisterResponse userRegisterResponse = authenticationService.registerUser(userRegisterRequest);
@@ -33,5 +37,11 @@ public class AuthController {
     public ResponseEntity<UserRegisterResponse> passwordReset(@RequestBody PasswordResetRequest passwordResetRequest) {
         UserRegisterResponse userRegisterResponse = authenticationService.passwordReset(passwordResetRequest);
         return ResponseEntity.ok(userRegisterResponse);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/validate")
+    public ResponseEntity<?> validate(){
+        return ResponseEntity.ok().build();
     }
 }
