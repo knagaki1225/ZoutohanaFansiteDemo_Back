@@ -36,6 +36,10 @@ public class PostService {
         return postRepository.fetchTopLatest();
     }
 
+    public List<PostView> getNew(){
+        return postRepository.selectNew();
+    }
+
     public List<PostTop> fetchTopCategory(String category) {
         String searchStr = category.toUpperCase();
 
@@ -50,7 +54,7 @@ public class PostService {
         return returnList;
     }
 
-    public List<PostList> fetchListCategory(String category) {
+    public List<PostView> fetchListCategory(String category) {
         return postRepository.fetchListCategory(category);
     }
 
@@ -65,24 +69,29 @@ public class PostService {
     }
 
     public PostPagination getPostPagination(String category, int page) {
-        String searchStr = category.toUpperCase();
+        List<PostView> posts;
+        if(category.equals("new")){
+            posts = getNew();
+        }else{
+            String searchStr = category.toUpperCase();
 
-        try{
-            PostCategory.valueOf(searchStr);
-        }catch(IllegalArgumentException e){
-            throw new InvalidCategoryException("Invalid category");
+            try{
+                PostCategory.valueOf(searchStr);
+            }catch(IllegalArgumentException e){
+                throw new InvalidCategoryException("Invalid category");
+            }
+
+            posts = fetchListCategory(searchStr);
         }
+        List<PostView> resultPosts = new ArrayList<>();
 
-        List<PostList> posts = fetchListCategory(searchStr);
-        List<PostList> resultPosts = new ArrayList<>();
-
-        PaginationView paginationView = paginationService.getPaginationView(page, posts.size(), 5);
+        PaginationView paginationView = paginationService.getPaginationView(page, posts.size(), 6);
 
         PaginationInfo paginationInfo = paginationView.getPaginationInfo();
 
         for(int i = paginationView.getStartNum(); i < paginationView.getEndNum(); i++){
-            PostList post = posts.get(i);
-            resultPosts.add(new PostList(post.getId(), post.getTitle(), post.getContent(), post.getPostedAt()));
+            PostView post = posts.get(i);
+            resultPosts.add(new PostView(post.getId(), post.getCategory(), post.getTitle(), post.getContent(), post.getPostedAt()));
         }
 
         return new PostPagination(paginationInfo, resultPosts);
