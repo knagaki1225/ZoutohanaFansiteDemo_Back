@@ -5,7 +5,7 @@ CREATE TABLE Users (
     nickname VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     self_introduction TEXT,
-    icon INTEGER,
+--     icon INTEGER,
     address VARCHAR(255),
     birth_year INTEGER,
     gender VARCHAR(255),   -- enums/UserGender

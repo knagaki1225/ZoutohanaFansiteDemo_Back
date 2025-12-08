@@ -4,10 +4,7 @@ import com.example.zoutohanafansitedemo.entity.auth.*;
 import com.example.zoutohanafansitedemo.entity.enums.UserRole;
 import com.example.zoutohanafansitedemo.entity.enums.UserStatus;
 import com.example.zoutohanafansitedemo.entity.user.User;
-import com.example.zoutohanafansitedemo.exception.AccountDisabledException;
-import com.example.zoutohanafansitedemo.exception.InvalidPasswordResetException;
-import com.example.zoutohanafansitedemo.exception.LoginArgumentNotValidException;
-import com.example.zoutohanafansitedemo.exception.UserRegistrationException;
+import com.example.zoutohanafansitedemo.exception.*;
 import com.example.zoutohanafansitedemo.repository.AdminUserRepository;
 import com.example.zoutohanafansitedemo.repository.UserRepository;
 import com.example.zoutohanafansitedemo.service.GenerateSecurityKeyService;
@@ -53,18 +50,47 @@ public class AuthenticationService {
                 )
         );
 
-        User user = adminUserRepository.selectAdminUserByLoginId(loginRequest.getLoginId());
+        User user = userRepository.selectUserByLoginId(loginRequest.getLoginId());
         if(user == null){
-            user = userRepository.selectUserByLoginId(loginRequest.getLoginId());
-            user.setRole(UserRole.ROLE_USER);
-        }else{
-            user.setRole(UserRole.ROLE_ADMIN);
-            user.setStatus(UserStatus.ACTIVE);
+            throw new RoleEndpointMismatchException("not have role");
         }
-
+        user.setRole(UserRole.ROLE_USER);
         if(user.getStatus() != UserStatus.ACTIVE){
             throw new AccountDisabledException("This account has been suspended");
         }
+
+        List<String> roles = List.of(user.getRole().name());
+
+        // JWTトークンの生成
+        String token = jwtService.generateToken(loginRequest.getLoginId(), roles);
+
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(token);
+        return loginResponse;
+    }
+
+    public LoginResponse adminAuthentication(LoginRequest loginRequest){
+        if (loginRequest.getLoginId() == null || loginRequest.getLoginId().isEmpty()) {
+            throw new LoginArgumentNotValidException("login id was empty");
+        }
+
+        if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
+            throw new LoginArgumentNotValidException("password was empty");
+        }
+
+        // 認証
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getLoginId(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        User user = adminUserRepository.selectAdminUserByLoginId(loginRequest.getLoginId());
+        if(user == null){
+            throw new RoleEndpointMismatchException("not have role");
+        }
+        user.setRole(UserRole.ROLE_ADMIN);
 
         List<String> roles = List.of(user.getRole().name());
 
@@ -93,9 +119,9 @@ public class AuthenticationService {
             throw new UserRegistrationException("nickname was empty");
         }
 
-        if(userRegisterRequest.getIcon() == null){
-            throw new UserRegistrationException("icon was empty");
-        }
+//        if(userRegisterRequest.getIcon() == null){
+//            throw new UserRegistrationException("icon was empty");
+//        }
 
         if(userRegisterRequest.getAddress() == null || userRegisterRequest.getAddress().isEmpty()){
             throw new UserRegistrationException("address was empty");

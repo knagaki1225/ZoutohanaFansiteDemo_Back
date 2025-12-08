@@ -55,9 +55,9 @@ public class ReviewController {
 //        return ResponseEntity.ok(reviews);
 //    }
 
-    @PostMapping("/new")
+    @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Review> insert(@Valid @RequestBody Review review,
+    public ResponseEntity<Review> insert(@RequestBody ReviewRegisterRequest review,
                                          @AuthenticationPrincipal CustomUserDetails userDetails,
                                          UriComponentsBuilder uriComponentsBuilder) {
         Review createdReview = reviewService.insert(review, userDetails);

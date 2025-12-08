@@ -5,6 +5,7 @@ import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
 import com.example.zoutohanafansitedemo.entity.info.PaginationView;
 import com.example.zoutohanafansitedemo.entity.project.*;
 import com.example.zoutohanafansitedemo.exception.InvalidPaginationException;
+import com.example.zoutohanafansitedemo.exception.handler.ProjectNotFoundException;
 import com.example.zoutohanafansitedemo.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -126,5 +127,13 @@ public class ProjectService {
         }
 
         return projectMyPages;
+    }
+
+    public Project getProjectByUrlKey(String urlKey){
+        Project project = projectRepository.selectByUrlKey(urlKey);
+        if(project == null){
+            throw new ProjectNotFoundException("Project not found");
+        }
+        return project;
     }
 }

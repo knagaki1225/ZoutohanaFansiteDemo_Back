@@ -9,7 +9,7 @@ public class UserRegisterRequest {
     private String password;
     private String nickname;
     private String selfIntroduction;
-    private Integer icon;
+//    private Integer icon;
     private String address;
     private Integer birthYear;
     private UserGender gender;
