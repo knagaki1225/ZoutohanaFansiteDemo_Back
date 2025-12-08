@@ -42,4 +42,8 @@ public class ProjectRepository {
     public int insert(Project project) {
         return projectMapper.insert(project);
     }
+
+    public Project selectByUrlKey(String urlKey){
+        return projectMapper.findByUrlKey(urlKey);
+    }
 }

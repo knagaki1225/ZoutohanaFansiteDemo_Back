@@ -30,11 +30,15 @@ public class PostRepository {
         return postMapper.fetchTopCategory(category);
     }
 
-    public List<PostList> fetchListCategory(String category) {
+    public List<PostView> fetchListCategory(String category) {
         return postMapper.fetchListCategory(category);
     }
 
     public PostView selectById(long id) {
         return postMapper.selectById(id);
+    }
+
+    public List<PostView> selectNew(){
+        return postMapper.selectNew();
     }
 }
