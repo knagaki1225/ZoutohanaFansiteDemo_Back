@@ -1,11 +1,8 @@
 package com.example.zoutohanafansitedemo.mapper;
 
 import com.example.zoutohanafansitedemo.entity.project.Project;
-import com.example.zoutohanafansitedemo.entity.review.Review;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import com.example.zoutohanafansitedemo.entity.project.ProjectUpdateRequest;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -23,6 +20,14 @@ public interface ProjectMapper {
             WHERE id = #{id}
             """)
     Project findById(long id);
+
+    @Select("""
+            SELECT *
+            FROM Projects
+            WHERE deleted = false
+                AND id = #{id}
+            """)
+    Project selectById(long id);
 
     @Select("""
             SELECT *

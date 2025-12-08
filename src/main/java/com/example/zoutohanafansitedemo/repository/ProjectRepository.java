@@ -1,6 +1,7 @@
 package com.example.zoutohanafansitedemo.repository;
 
 import com.example.zoutohanafansitedemo.entity.project.Project;
+import com.example.zoutohanafansitedemo.entity.project.ProjectUpdateRequest;
 import com.example.zoutohanafansitedemo.mapper.ProjectMapper;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,10 @@ public class ProjectRepository {
 
     public Project findById(long id) {
         return projectMapper.findById(id);
+    }
+
+    public Project selectById(long id) {
+        return projectMapper.selectById(id);
     }
 
     public List<Project> selectFourEndProjects(){

@@ -36,6 +36,13 @@ public class ProjectController {
     }
 //    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
 
+    @GetMapping("/adminView/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Project> findByIdView(@PathVariable long id) {
+        Project project = projectService.selectById(id);
+        return ResponseEntity.ok(project);
+    }
+
     @GetMapping("/top/end")
     public ResponseEntity<List<ProjectTopPageEnd>> getTopProjects() {
         List<Project> projects = projectService.getFourEndProject();
@@ -71,7 +78,7 @@ public class ProjectController {
         System.out.println("urlKey=" + projectRegisterRequest.getUrlKey());
 
         Project createdProject = projectService.insert(projectRegisterRequest);
-        URI location = uriComponentsBuilder.path("/api/projects/{id}")
+        URI location = uriComponentsBuilder.path("/api/adminView/{id}")
                 .buildAndExpand(createdProject.getId()).toUri();
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(location);

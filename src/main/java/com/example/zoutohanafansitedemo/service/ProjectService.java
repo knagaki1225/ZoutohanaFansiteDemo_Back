@@ -7,6 +7,7 @@ import com.example.zoutohanafansitedemo.entity.project.*;
 import com.example.zoutohanafansitedemo.exception.InvalidPaginationException;
 import com.example.zoutohanafansitedemo.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -32,6 +33,10 @@ public class ProjectService {
 
     public Project findById(long id) {
         return projectRepository.findById(id);
+    }
+
+    public Project selectById(long id) {
+        return projectRepository.selectById(id);
     }
 
     public List<Project> getFourEndProject(){
