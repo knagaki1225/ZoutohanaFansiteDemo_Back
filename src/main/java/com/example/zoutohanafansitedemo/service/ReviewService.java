@@ -69,7 +69,7 @@ public class ReviewService {
     }
 
     public ReviewMyPagePagination getReviewMyPage(int page, long userId){
-        List<Review> reviews = reviewRepository.selectByUserId(userId);
+        List<Review> reviews = reviewRepository.selectByUserIdOrderByDesc(userId);
         List<ReviewMyPage> reviewList = new ArrayList<>();
 
         if(reviews.isEmpty()){

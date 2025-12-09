@@ -3,12 +3,12 @@ package com.example.zoutohanafansitedemo.entity.enums;
 import java.util.Arrays;
 
 public enum ThemeColor {
-    GREEN("449872", "みどり"),
-    PINK("FF6C84", "もも"),
-    YELLOW("F5B84C", "き"),
-    BLUE("00BCD4", "あお"),
-    BLACK("393939", "くろ"),
-    GRAY("A0B0B7", "はい");
+    GREEN("#449872", "みどり"),
+    PINK("#FF6C84", "もも"),
+    YELLOW("#F5B84C", "き"),
+    BLUE("#00BCD4", "あお"),
+    BLACK("#393939", "くろ"),
+    GRAY("#A0B0B7", "はい");
 
 
     private final String dbValue;
