@@ -8,10 +8,10 @@ import java.util.List;
 @Data
 public class PostPagination {
     private PaginationInfo paginationInfo;
-    private List<PostList> postLists;
+    private List<PostView> postViews;
 
-    public PostPagination(PaginationInfo paginationInfo, List<PostList> postLists) {
+    public PostPagination(PaginationInfo paginationInfo, List<PostView> postViews) {
         this.paginationInfo = paginationInfo;
-        this.postLists = postLists;
+        this.postViews = postViews;
     }
 }

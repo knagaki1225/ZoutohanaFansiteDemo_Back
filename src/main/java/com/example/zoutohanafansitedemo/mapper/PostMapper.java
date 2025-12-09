@@ -55,6 +55,7 @@ public interface PostMapper {
     @Select("""
         SELECT
             id,
+            category,
             title,
             content,
             posted_at
@@ -62,9 +63,10 @@ public interface PostMapper {
         WHERE deleted = false
             AND status = 'PUBLIC'
             AND category = #{category}
+            AND posted_at < NOW()
         ORDER BY posted_at DESC
     """)
-    List<PostList> fetchListCategory(String category);
+    List<PostView> fetchListCategory(String category);
 
     @Select("""
         SELECT
@@ -79,4 +81,19 @@ public interface PostMapper {
             AND id = #{id}
     """)
     PostView selectById(long id);
+
+    @Select("""
+        SELECT 
+            id,
+            category,
+            title,
+            content,
+            posted_at
+        FROM Posts
+        WHERE deleted = FALSE
+            AND status = 'PUBLIC'
+            AND posted_at < NOW()
+        ORDER BY created_at DESC;
+    """)
+    List<PostView> selectNew();
 }
