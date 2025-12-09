@@ -37,7 +37,7 @@ public class ProjectController {
 //    ==========ここまでデバッグ用(削除済み・非表示も返す)==========
 
     @GetMapping("/adminView/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Project> findByIdView(@PathVariable long id) {
         Project project = projectService.selectById(id);
         return ResponseEntity.ok(project);
@@ -72,7 +72,7 @@ public class ProjectController {
     }
 
     @PostMapping("/new")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Project> insert(@ModelAttribute ProjectRegisterRequest projectRegisterRequest, UriComponentsBuilder uriComponentsBuilder) {
         System.out.println("name=" + projectRegisterRequest.getName());
         System.out.println("urlKey=" + projectRegisterRequest.getUrlKey());

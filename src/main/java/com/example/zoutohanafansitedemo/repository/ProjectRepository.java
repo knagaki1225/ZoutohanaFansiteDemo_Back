@@ -1,7 +1,6 @@
 package com.example.zoutohanafansitedemo.repository;
 
 import com.example.zoutohanafansitedemo.entity.project.Project;
-import com.example.zoutohanafansitedemo.entity.project.ProjectUpdateRequest;
 import com.example.zoutohanafansitedemo.mapper.ProjectMapper;
 import org.springframework.stereotype.Repository;
 
