@@ -1,7 +1,6 @@
 package com.example.zoutohanafansitedemo.mapper;
 
 import com.example.zoutohanafansitedemo.entity.project.Project;
-import com.example.zoutohanafansitedemo.entity.project.ProjectUpdateRequest;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -64,6 +63,7 @@ public interface ProjectMapper {
                 url_key,
                 introduction,
                 main_img_url,
+                qr_img_url,
                 theme_color,
                 status,
                 enable_visible_book_title,
@@ -81,6 +81,7 @@ public interface ProjectMapper {
                 #{urlKey},
                 #{introduction},
                 #{mainImgUrl},
+                #{qrImgUrl},
                 #{themeColor},
                 #{status},
                 #{enableVisibleBookTitle},

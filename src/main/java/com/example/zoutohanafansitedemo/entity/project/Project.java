@@ -20,6 +20,7 @@ public class Project {
 
     private String introduction;
     private String mainImgUrl;
+    private String qrImgUrl;
     private ThemeColor themeColor;  // enums/ThemeColor
     private ProjectStatus status;  // enums/ProjectStatus
     private boolean enableVisibleBookTitle;

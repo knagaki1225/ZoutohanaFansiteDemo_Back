@@ -16,6 +16,20 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.Hashtable;
+import javax.imageio.ImageIO;
+import java.io.InputStream;
+
 @Service
 public class ProjectService {
     private final ProjectRepository projectRepository;
@@ -92,9 +106,87 @@ public class ProjectService {
         newProject.setVotingStartAt(projectRegisterRequest.getVotingStartAt());
         newProject.setVotingEndAt(projectRegisterRequest.getVotingEndAt());
 
+        try {
+            String projectUrl = "http://localhost:8080/projects/" + newProject.getUrlKey(); // 企画ページのパスに後で修正
+            byte[] qrBytes = generateQRCodeImage(projectUrl, 300, 300);
+            MultipartFile qrFile = new ByteArrayMultipartFile(qrBytes, "qr.png", "image/png");
+            String qrFileName = imageService.saveImage(qrFile);
+            newProject.setQrImgUrl(qrFileName);
+        } catch (Exception e) {
+            throw new RuntimeException("QRコード生成に失敗しました: " + e.getMessage(), e);
+        }
 
         projectRepository.insert(newProject);
         return newProject;
+    }
+
+    private byte[] generateQRCodeImage(String text, int width, int height) throws WriterException, IOException {
+        Hashtable hints = new Hashtable();
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
+        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(bufferedImage, "png", baos);
+            return baos.toByteArray();
+        }
+    }
+
+    private static class ByteArrayMultipartFile implements MultipartFile {
+        private final byte[] bytes;
+        private final String name;
+        private final String contentType;
+
+        public ByteArrayMultipartFile(byte[] bytes, String name, String contentType) {
+            this.bytes = bytes;
+            this.name = name;
+            this.contentType = contentType;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String getOriginalFilename() {
+            return name;
+        }
+
+        @Override
+        public String getContentType() {
+            return contentType;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return bytes == null || bytes.length == 0;
+        }
+
+        @Override
+        public long getSize() {
+            return bytes.length;
+        }
+
+        @Override
+        public byte[] getBytes() throws IOException {
+            return bytes;
+        }
+
+        @Override
+        public InputStream getInputStream() throws IOException {
+            return new ByteArrayInputStream(bytes);
+        }
+
+        public void traznsferTo(java.nio.file.Path dest) throws IOException, IllegalStateException {
+            java.nio.file.Files.write(dest, bytes);
+        }
+
+        @Override
+        public void transferTo(java.io.File dest) throws IOException, IllegalStateException {
+            java.nio.file.Files.write(dest.toPath(), bytes);
+        }
     }
 
     public List<ProjectMyPage> getProjectMyPage(){
