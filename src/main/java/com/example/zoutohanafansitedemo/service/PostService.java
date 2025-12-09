@@ -5,7 +5,6 @@ import com.example.zoutohanafansitedemo.entity.info.PaginationInfo;
 import com.example.zoutohanafansitedemo.entity.info.PaginationView;
 import com.example.zoutohanafansitedemo.entity.post.*;
 import com.example.zoutohanafansitedemo.exception.InvalidCategoryException;
-import com.example.zoutohanafansitedemo.exception.InvalidPaginationException;
 import com.example.zoutohanafansitedemo.exception.PostNotFoundException;
 import com.example.zoutohanafansitedemo.repository.PostRepository;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class PostService {
         return postRepository.findById(id);
     }
 
-    public List<PostTop> fetchTopLatest() {
+    public List<PostTop> getTopLatest() {
         return postRepository.fetchTopLatest();
     }
 

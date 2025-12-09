@@ -3,7 +3,6 @@ package com.example.zoutohanafansitedemo.controller;
 import com.example.zoutohanafansitedemo.entity.enums.ProjectStatus;
 import com.example.zoutohanafansitedemo.entity.project.*;
 import com.example.zoutohanafansitedemo.service.ProjectService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,27 +44,27 @@ public class ProjectController {
         return ResponseEntity.ok(project);
     }
 
-    @GetMapping("/top/end")
-    public ResponseEntity<List<ProjectTopPageEnd>> getTopProjects() {
-        List<Project> projects = projectService.getFourEndProject();
-        List<ProjectTopPageEnd> topProjects = new ArrayList<>();
-        for (Project project : projects) {
-            topProjects.add(new ProjectTopPageEnd(project.getId(), project.getUrlKey(), project.getName(), project.getProjectStartAt(), project.getProjectEndAt()));
-        }
+//    @GetMapping("/top/end")
+//    public ResponseEntity<List<ProjectTopPageEnd>> getTopProjects() {
+//        List<Project> projects = projectService.getFourEndProject();
+//        List<ProjectTopPageEnd> topProjects = new ArrayList<>();
+//        for (Project project : projects) {
+//            topProjects.add(new ProjectTopPageEnd(project.getId(), project.getUrlKey(), project.getName(), project.getProjectStartAt(), project.getProjectEndAt()));
+//        }
+//
+//        return ResponseEntity.ok(topProjects);
+//    }
 
-        return ResponseEntity.ok(topProjects);
-    }
-
-    @GetMapping("/top/progress")
-    public ResponseEntity<List<ProjectProgress>> getTopProjectsProgress() {
-        List<Project> projects = projectService.getProgressProjects();
-        List<ProjectProgress> topProjects = new ArrayList<>();
-        for (Project project : projects) {
-            topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getMainImgUrl(), project.getProjectStartAt(), project.getProjectEndAt(), project.getIntroduction()));
-        }
-
-        return ResponseEntity.ok(topProjects);
-    }
+//    @GetMapping("/top/progress")
+//    public ResponseEntity<List<ProjectProgress>> getTopProjectsProgress() {
+//        List<Project> projects = projectService.getProgressProjects();
+//        List<ProjectProgress> topProjects = new ArrayList<>();
+//        for (Project project : projects) {
+//            topProjects.add(new ProjectProgress(project.getId(), project.getUrlKey(), project.getName(), project.getMainImgUrl(), , project.getProjectStartAt(), project.getProjectEndAt(), project.getIntroduction()));
+//        }
+//
+//        return ResponseEntity.ok(topProjects);
+//    }
 
     @GetMapping("/list")
     public ResponseEntity<ProjectPagination> getListPageProjectEnd(@RequestParam(defaultValue = "1") int page) {

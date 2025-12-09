@@ -1,7 +1,6 @@
 package com.example.zoutohanafansitedemo.mapper;
 
 import com.example.zoutohanafansitedemo.entity.project.Project;
-import com.example.zoutohanafansitedemo.entity.project.ProjectUpdateRequest;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

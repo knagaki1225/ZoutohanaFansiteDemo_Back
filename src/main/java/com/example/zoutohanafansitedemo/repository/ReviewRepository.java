@@ -34,6 +34,10 @@ public class ReviewRepository {
         return reviewMapper.selectByUserId(userId);
     }
 
+    public List<Review> selectByUserIdOrderByDesc(long userId){
+        return reviewMapper.selectByUserIdOrderByDesc(userId);
+    }
+
     public int insert(Review review) {
         return reviewMapper.insert(review);
     }

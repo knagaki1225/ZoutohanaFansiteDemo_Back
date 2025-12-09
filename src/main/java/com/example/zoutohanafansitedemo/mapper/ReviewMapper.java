@@ -96,6 +96,29 @@ public interface ReviewMapper {
     """)
     List<Review> selectByUserId(long userId);
 
+    @Select("""
+        SELECT
+            Reviews.id,
+            project_id,
+            Projects.name AS project_name,
+            user_id,
+            book_isbn,
+            book_title,
+            book_publisher,
+            book_author,
+            review_title,
+            review_content,
+            vote_count,
+            Reviews.created_at
+        FROM Reviews
+        LEFT OUTER JOIN Projects
+        ON Reviews.project_id = Projects.id
+        WHERE Reviews.deleted = FALSE
+            AND user_id = #{userId}
+        ORDER BY Reviews.created_at DESC;
+    """)
+    List<Review> selectByUserIdOrderByDesc(long userId);
+
     @Insert("""
         INSERT INTO Reviews (
             project_id,

@@ -2,9 +2,7 @@ package com.example.zoutohanafansitedemo.controller;
 
 import com.example.zoutohanafansitedemo.entity.post.*;
 import com.example.zoutohanafansitedemo.service.PostService;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +32,7 @@ public class PostController {
 
     @GetMapping("/top/latest")
     public ResponseEntity<List<PostTop>> fetchTopLatest() {
-        List<PostTop> postTops = postService.fetchTopLatest();
+        List<PostTop> postTops = postService.getTopLatest();
         return ResponseEntity.ok(postTops);
     }
 
