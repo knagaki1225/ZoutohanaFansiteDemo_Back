@@ -95,4 +95,8 @@ public class PostService {
 
         return new PostPagination(paginationInfo, resultPosts);
     }
+
+    public List<PostView> selectWithNeighbors(long id) {
+        return postRepository.selectWithNeighbors(id);
+    }
 }

@@ -96,4 +96,43 @@ public interface PostMapper {
         ORDER BY created_at DESC;
     """)
     List<PostView> selectNew();
+
+    @Select("""
+        WITH sorted AS (
+            SELECT
+                p.*,
+                ROW_NUMBER() OVER (
+                    PARTITION BY p.category
+                    ORDER BY p.posted_at
+                ) AS rn
+            FROM Posts p
+            WHERE
+                p.deleted = FALSE
+                AND p.status = 'PUBLIC'
+                AND p.category = (
+                    SELECT category
+                    FROM Posts
+                    WHERE deleted = false
+                        AND status = 'PUBLIC'
+                        AND id = #{id}
+                )
+        )
+
+        SELECT
+            id,
+            category,
+            title,
+            content,
+            posted_at
+        FROM sorted
+        WHERE rn IN (
+            (SELECT rn FROM sorted WHERE id = #{id}) - 1,
+            (SELECT rn FROM sorted WHERE id = #{id}),
+            (SELECT rn FROM sorted WHERE id = #{id}) + 1
+        )
+        ORDER BY rn;
+    """)
+    List<PostView> selectWithNeighbors(long id);
+    //  [WITH ~ の方] 指定したお知らせと同カテゴリー・公開中のお知らせだけをpostedAt順に並べたsortedという仮テーブルを作り、その順番をrnとして持たせる
+    //  [SELECT ~ の方] 指定したお知らせの一つ前の投稿・指定したお知らせ・指定したお知らせの一つ後を選択して返す
 }
