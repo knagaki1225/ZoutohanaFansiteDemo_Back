@@ -41,4 +41,8 @@ public class PostRepository {
     public List<PostView> selectNew(){
         return postMapper.selectNew();
     }
+
+    public List<PostView> selectWithNeighbors(long id) {
+        return postMapper.selectWithNeighbors(id);
+    }
 }

@@ -48,10 +48,16 @@ public class PostController {
 //        return ResponseEntity.ok(postLists);
 //    }
 
+//    @GetMapping("/view/{id}")
+//    public ResponseEntity<PostView> selectById(@PathVariable long id) {
+//        PostView postView = postService.selectById(id);
+//        return ResponseEntity.ok(postView);
+//    }
+
     @GetMapping("/view/{id}")
-    public ResponseEntity<PostView> selectById(@PathVariable long id) {
-        PostView postView = postService.selectById(id);
-        return ResponseEntity.ok(postView);
+    public ResponseEntity<List<PostView>> selectWithNeighbors(@PathVariable long id) {
+        List<PostView> postviews = postService.selectWithNeighbors(id);
+        return ResponseEntity.ok(postviews);
     }
 
     @GetMapping("/list/{category}")
